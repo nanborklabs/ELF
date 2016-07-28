@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="user_profile_height">120dp</dimen>
+    <dimen name="baord_textsize">20sp</dimen>
+    <dimen name="uname_cv">18sp</dimen>
+</resources>

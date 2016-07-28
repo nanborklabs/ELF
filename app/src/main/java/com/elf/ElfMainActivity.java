@@ -3,6 +3,9 @@ package com.elf;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,13 +16,27 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.elf.Fragment.ContactsFragment;
+import com.elf.Fragment.HomeFragment;
+import com.elf.Fragment.NotificationFragment;
+import com.elf.Fragment.PaymentsFragment;
+import com.elf.Fragment.ReportFragment;
+
+import butterknife.ButterKnife;
+
 public class ElfMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
+    Fragment mainFragment;
+    private static FragmentManager fManager;
+    private static FragmentTransaction mTrasaction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_elf_main);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -32,6 +49,8 @@ public class ElfMainActivity extends AppCompatActivity
             }
         });
 
+        fManager=getSupportFragmentManager();
+        mTrasaction=fManager.beginTransaction();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -80,20 +99,25 @@ public class ElfMainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
+       switch (id){
+           case R.id.home:
+               mainFragment=new HomeFragment();
+               break;
+           case  R.id.noti :
+               mainFragment=new NotificationFragment();
+               break;
+           case  R.id.report :
+               mainFragment=new ReportFragment();
+               break;
+           case  R.id.payments :
+               mainFragment=new PaymentsFragment();
+               break;
+           case  R.id.contacts:
+               mainFragment=new ContactsFragment();
+               break;
+       }
+        //Replace Fragment Transaction and close the drawer
+        mTrasaction.replace(R.id.frag_holder,mainFragment).commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
