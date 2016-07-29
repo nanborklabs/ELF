@@ -20,11 +20,15 @@
             <!--Title Board Text-->
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="24dp"
+                android:layout_height="30dp"
                 android:id="@+id/user_board"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:textSize="@dimen/baord_textsize"
+                android:layout_margin="8dp"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:textColor="@color/colorPrimary"
+                android:typeface="sans"
+                android:textStyle="bold"
 
                 android:text="SAMACHEER KALVI"
                 />
@@ -41,28 +45,37 @@
 
                 <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="60dp"
                     android:id="@+id/user_logo"
-                    android:padding="4dp"
+                    android:layout_gravity="center"
+                    style="@style/imgview_icon_style"
                     android:layout_weight="0.5"
-                    android:src="@drawable/ic_menu_gallery"/>
+
+
+
+                    android:src="@drawable/ic_account_circle_white_48dp"/>
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="60dp"
                     android:text="User Name"
                     android:layout_weight="2"
+                    style="@style/tv_dash"
+                    android:layout_gravity="center"
                     android:gravity="center"
+
                     android:id="@+id/username_home_frag"/>
                 <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="60dp"
                     android:id="@+id/std_logo"
                     android:layout_weight="0.5"
-                    android:src="@drawable/ic_menu_gallery"/>
+                    style="@style/imgview_icon_style"
+                    android:src="@drawable/ic_local_library_white_48dp"/>
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="60dp"
                     android:text="standard"
+                    style="@style/tv_dash"
                     android:layout_weight="2"
                     android:gravity="center"
                     android:id="@+id/std"/>
@@ -83,14 +96,16 @@
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:id="@+id/school_logo"
-
+                    style="@style/imgview_icon_style"
                     android:layout_weight="0.5"
-                    android:src="@drawable/ic_menu_gallery"/>
+
+                    android:src="@drawable/ic_school_white_48dp"/>
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="60dp"
                     android:text="School Name"
                     android:layout_weight="2"
+                    style="@style/tv_dash"
                     android:gravity="center"
                     android:id="@+id/school_name"/>
                 <ImageView
@@ -98,11 +113,14 @@
                     android:layout_height="60dp"
                     android:id="@+id/loc_log"
                     android:layout_weight="0.5"
-                    android:src="@drawable/ic_menu_gallery"/>
+
+                    style="@style/imgview_icon_style"
+                    android:src="@drawable/ic_location_on_white_48dp"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:text="Location"
+                    style="@style/tv_dash"
                     android:layout_weight="2"
                     android:gravity="center"
                     android:id="@+id/location"/>

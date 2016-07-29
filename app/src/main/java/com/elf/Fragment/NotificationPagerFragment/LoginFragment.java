@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
@@ -54,6 +56,9 @@ public class LoginFragment extends Fragment {
        mview=inflater.inflate(R.layout.login_frag,container,false);
         ButterKnife.bind(this,mview);
         StartAnimations();
+
+        uname.setTranslationY(-uname.getHeight());
+        mPass.setTranslationY(-mPass.getHeight());
         return mview;
     }
 
@@ -68,17 +73,18 @@ public class LoginFragment extends Fragment {
                 .start();
 
 //        animations for Edite text componenets
-        uname.setTranslationY(-uname.getHeight());
-        mPass.setTranslationY(-mPass.getHeight());
+        uname.setVisibility(View.VISIBLE);
+        mPass.setVisibility(View.VISIBLE);
         uname.animate().translationY(0)
-                .setDuration(600)
-                .setStartDelay(300)
-                .setInterpolator(new OvershootInterpolator(3.f))
+                .setDuration(1200)
+                .setStartDelay(800)
+                .setInterpolator(new AccelerateInterpolator())
                 .start();
         mPass.animate().translationY(0)
-                .setDuration(600)
-                .setStartDelay(300)
-                .setInterpolator(new OvershootInterpolator(3.f))
+                .setDuration(1200)
+                .setStartDelay(800)
+
+                .setInterpolator(new AccelerateDecelerateInterpolator())
                 .start();
 
     }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="imgview_icon_style">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:padding">@dimen/img_icon_padding</item>
+    </style>
+
+    <style name="tv_dash">
+        <item name="android:textSize">22sp</item>
+
+    </style>
+</resources>

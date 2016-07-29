@@ -6,4 +6,10 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="imgview_icon_style">
+        <item name="android:padding">@dimen/img_icon_padding</item>
+    </style>
+
+    <style name="tv_dash"></style>
 </resources>

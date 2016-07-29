@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import com.elf.Fragment.ContactsFragment;
 import com.elf.Fragment.HomeFragment;
 import com.elf.Fragment.NotificationFragment;
+import com.elf.Fragment.NotificationPagerFragment.LoginFragment;
 import com.elf.Fragment.PaymentsFragment;
 import com.elf.Fragment.ReportFragment;
 
@@ -108,6 +109,7 @@ public class ElfMainActivity extends AppCompatActivity
                mainFragment=new ContactsFragment();
                break;
        }
+
         //Replace Fragment Transaction and close the drawer
       fManager.beginTransaction().replace(R.id.frag_holder,mainFragment)
               .addToBackStack("yes")

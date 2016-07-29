@@ -11,4 +11,6 @@
     <dimen name="uname_cv">18sp</dimen>
     <dimen name="submit_but_tmargin">12dp</dimen>
     <dimen name="elf_login_logo_tmargin">60dp</dimen>
+    <dimen name="img_icon_padding">8dp</dimen>
+    <dimen name="tv_dash_textsize">22sp</dimen>
 </resources>
