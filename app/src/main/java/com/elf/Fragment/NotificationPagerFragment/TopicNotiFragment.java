@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.elf.R;
+
 /**
  * Created by nandhu on 29/7/16.
  */
 public class TopicNotiFragment extends Fragment {
 
+    public View mView;
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -30,7 +33,8 @@ public class TopicNotiFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+       mView=inflater.inflate(R.layout.topicnotification,container,false);
+        return mView;
     }
 
     @Override

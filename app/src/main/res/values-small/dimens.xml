@@ -3,4 +3,6 @@
     <dimen name="user_profile_height">120dp</dimen>
     <dimen name="baord_textsize">20sp</dimen>
     <dimen name="uname_cv">18sp</dimen>
+    <dimen name="submit_but_tmargin">12dp</dimen>
+    <dimen name="elf_login_logo_tmargin">60dp</dimen>
 </resources>

@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_marginTop="8dp"
     android:layout_marginLeft="12dp"
-
+    android:id="@+id/cv_home_frag"
     android:layout_marginRight="12dp"
     android:layout_height="@dimen/user_profile_height">
         <LinearLayout
@@ -43,7 +43,7 @@
                     android:layout_width="0dp"
                     android:layout_height="80dp"
                     android:id="@+id/user_logo"
-
+                    android:padding="4dp"
                     android:layout_weight="0.5"
                     android:src="@drawable/ic_menu_gallery"/>
                 <TextView
@@ -52,7 +52,7 @@
                     android:text="User Name"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:id="@+id/username"/>
+                    android:id="@+id/username_home_frag"/>
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="80dp"

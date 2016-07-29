@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ public class NotificationFragment extends android.support.v4.app.Fragment {
     private View mView;
     @BindView(R.id.noti_pager) ViewPager mPager;
     @BindView(R.id.noti_tabs) TabLayout mTabLayout;
-    private static FragmentManager fm;
+     FragmentManager fm;
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -47,6 +48,9 @@ public class NotificationFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
       mView=inflater.inflate(R.layout.noti,container,false);
        ButterKnife.bind(this,mView);
+        if (mPager==null){
+            Log.d("PAGER","pager null");
+        }
         if (fm!=null){
             mPager.setAdapter(new NotificationPagerAdapter(fm));
 

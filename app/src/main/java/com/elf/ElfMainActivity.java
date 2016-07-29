@@ -40,14 +40,6 @@ public class ElfMainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         fManager=getSupportFragmentManager();
         mTrasaction=fManager.beginTransaction();
@@ -117,7 +109,9 @@ public class ElfMainActivity extends AppCompatActivity
                break;
        }
         //Replace Fragment Transaction and close the drawer
-        mTrasaction.replace(R.id.frag_holder,mainFragment).commit();
+      fManager.beginTransaction().replace(R.id.frag_holder,mainFragment)
+              .addToBackStack("yes")
+              .commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

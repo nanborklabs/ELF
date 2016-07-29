@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.elf.R;
+
 /**
  * Created by nandhu on 29/7/16.
  */
 public class TestNotifactionFragment extends Fragment {
+    public View mview;
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -29,14 +32,14 @@ public class TestNotifactionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+mview=inflater.inflate(R.layout.test_notifcaton,container,false);
+        return mview;
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
-
     @Override
     public void onStart() {
         super.onStart();
