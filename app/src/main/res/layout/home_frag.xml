@@ -14,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:weightSum="2"
+
             android:layout_height="@dimen/user_profile_height">
 
             <!--Title Board Text-->
@@ -28,7 +28,7 @@
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textColor="@color/colorPrimary"
                 android:typeface="sans"
-                android:textStyle="bold"
+
 
                 android:text="SAMACHEER KALVI"
                 />
@@ -36,8 +36,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="60dp"
+
                 android:layout_below="@id/user_board"
                 android:orientation="horizontal"
                 android:id="@+id/ll_cv"
@@ -85,8 +85,8 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="60dp"
+
                 android:layout_below="@id/user_board"
                 android:orientation="horizontal"
                 android:id="@+id/ll2_cv"

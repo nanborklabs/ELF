@@ -8,8 +8,13 @@
     </style>
 
     <style name="imgview_icon_style">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:layout_margin">4dp</item>
         <item name="android:padding">@dimen/img_icon_padding</item>
     </style>
 
-    <style name="tv_dash"></style>
+    <style name="tv_dash">
+        <item name="android:textSize">@dimen/tv_dash_textsize</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
 </resources>

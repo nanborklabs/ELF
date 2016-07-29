@@ -4,11 +4,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_home_black_48dp"
             android:title="Home" />
         <item
             android:id="@+id/noti"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_announcement_black_48dp"
             android:title="Notifications" />
         <item
             android:id="@+id/report"
@@ -16,11 +16,11 @@
             android:title="Report" />
         <item
             android:id="@+id/payments"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_credit_card_black_48dp"
             android:title="Payments" />
         <item
             android:id="@+id/contacts"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_contacts_black_48dp"
             android:title="Contacts" />
     </group>
 

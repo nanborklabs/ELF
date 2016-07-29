@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="user_profile_height">160dp</dimen>
+    <dimen name="user_profile_height">180dp</dimen>
     <dimen name="baord_textsize">24sp</dimen>
     <dimen name="uname_cv">18sp</dimen>
     <dimen name="submit_but_tmargin">12dp</dimen>
     <dimen name="elf_login_logo_tmargin">60dp</dimen>
-    <dimen name="img_icon_padding">2dp</dimen>
+    <dimen name="img_icon_padding">4dp</dimen>
     <dimen name="tv_dash_textsize">20sp</dimen>
 </resources>
