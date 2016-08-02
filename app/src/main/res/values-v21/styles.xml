@@ -17,6 +17,7 @@
         <item name="android:textSize">@dimen/tv_dash_textsize</item>
         <item name="android:textColor">@color/cardview_dark_background</item>
         <item name="android:gravity">center</item>
+        <item name="android:layout_margin">4dp</item>
     </style>
 
     <style name="tv_login_page">
@@ -29,7 +30,9 @@
     </style>
 
     <style name="test_parent_tv">
-        <item name="android:gravity">start</item>
+        <item name="android:gravity">left</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:layout_margin">4dp</item>
         <item name="android:textSize">@dimen/test_parent_tvsize</item>
     </style>
 </resources>

@@ -3,12 +3,13 @@
     android:orientation="horizontal"
     android:weightSum="5"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="60dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Test 1"
+
         style="@style/test_parent_tv"
         android:layout_weight="1.5"
         android:id="@+id/test_no" />
@@ -31,5 +32,6 @@
         android:layout_height="wrap_content"
         android:text="Test 1"
         android:layout_weight="0.5"
+
         android:id="@+id/test_dropdown_icon" />
 </LinearLayout>

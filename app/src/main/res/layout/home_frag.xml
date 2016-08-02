@@ -163,6 +163,7 @@
        android:horizontalSpacing="10dp"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
+       android:isScrollContainer="false"
        android:numColumns="2"
        android:gravity="center"
        android:id="@+id/home_grid">

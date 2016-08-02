@@ -81,6 +81,7 @@ public class SubjectGridAdapter extends BaseAdapter {
         TextView tv = (TextView) convertView.findViewById(R.id.subject_title);
         tv.setText(sub_text);
         tv.setTextColor(bg_tv);
+        convertView.setBackgroundColor(bg);
 
         ImageView img=(ImageView)convertView.findViewById(R.id.subject_logo);
         img.setImageDrawable(ContextCompat.getDrawable(mContext,DrwableRes[position]));
