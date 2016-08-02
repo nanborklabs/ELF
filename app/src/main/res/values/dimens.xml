@@ -12,5 +12,10 @@
     <dimen name="submit_but_tmargin">12dp</dimen>
     <dimen name="elf_login_logo_tmargin">60dp</dimen>
     <dimen name="img_icon_padding">8dp</dimen>
-    <dimen name="tv_dash_textsize">22sp</dimen>
+    <dimen name="tv_dash_textsize">18sp</dimen>
+    <dimen name="login_page_text_size">20sp</dimen>
+    <dimen name="grid_sub_title">2dp</dimen>
+    <dimen name="user_dash_height_row">50dp</dimen>
+    <dimen name="samacheer_kalvi_ts">20sp</dimen>
+    <dimen name="test_parent_tvsize">18sp</dimen>
 </resources>

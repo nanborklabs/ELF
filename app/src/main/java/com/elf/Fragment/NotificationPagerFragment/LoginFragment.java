@@ -55,10 +55,11 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        mview=inflater.inflate(R.layout.login_frag,container,false);
         ButterKnife.bind(this,mview);
-        StartAnimations();
-
         uname.setTranslationY(-uname.getHeight());
         mPass.setTranslationY(-mPass.getHeight());
+        StartAnimations();
+
+
         return mview;
     }
 
@@ -73,19 +74,19 @@ public class LoginFragment extends Fragment {
                 .start();
 
 //        animations for Edite text componenets
-        uname.setVisibility(View.VISIBLE);
-        mPass.setVisibility(View.VISIBLE);
-        uname.animate().translationY(0)
+
+       /* username_login.animate().translationY(0)
                 .setDuration(1200)
                 .setStartDelay(800)
                 .setInterpolator(new AccelerateInterpolator())
                 .start();
-        mPass.animate().translationY(0)
+        mPassword.animate().translationY(0)
                 .setDuration(1200)
                 .setStartDelay(800)
 
                 .setInterpolator(new AccelerateDecelerateInterpolator())
                 .start();
+                */
 
     }
 

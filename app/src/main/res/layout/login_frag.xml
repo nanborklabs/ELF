@@ -59,4 +59,26 @@
         android:layout_marginTop="@dimen/submit_but_tmargin"
         android:id="@+id/submit_button_login"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/signup"
+        style="@style/tv_login_page"
+        android:layout_below="@+id/submit_button_login"
+        android:layout_alignLeft="@+id/pasword_tl_login"
+        android:layout_alignStart="@+id/pasword_tl_login" />
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password?"
+        android:layout_marginRight="20dp"
+        style="@style/tv_login_page"
+        android:id="@+id/forgot_password"
+        android:layout_alignTop="@+id/signup"
+        android:layout_toRightOf="@+id/submit_button_login"
+        android:layout_toEndOf="@+id/submit_button_login" />
+
 </RelativeLayout>

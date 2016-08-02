@@ -7,12 +7,15 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.TextView;
+
+import com.elf.Adapter.SubjectGridAdapter;
 
 import com.elf.R;
 
 import butterknife.BindView;
-import butterknife.BindViews;
+import butterknife.ButterKnife;
 
 /**
  * Created by nandhu on 28/7/16.
@@ -26,6 +29,8 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.std) TextView mStandard;
     @BindView(R.id.username_home_frag) TextView mUsername;
     @BindView(R.id.cv_home_frag) CardView mDash;
+    @BindView(R.id.home_grid)
+    GridView home_grid;
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -44,7 +49,9 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-      mView=inflater.inflate(R.layout.home_frag,container,false);
+        mView = inflater.inflate(R.layout.home_frag, container, false);
+        ButterKnife.bind(this, mView);
+        home_grid.setAdapter(new SubjectGridAdapter(getContext()));
         return mView;
     }
 

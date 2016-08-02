@@ -2,7 +2,7 @@
 <resources>
 
     <style name="imgview_icon_style">
-        <item name="android:background">@color/colorPrimary</item>
+
         <item name="android:layout_margin">4dp</item>
 
         <item name="android:padding">@dimen/img_icon_padding</item>
@@ -10,6 +10,12 @@
 
     <style name="tv_dash">
         <item name="android:textSize">@dimen/tv_dash_textsize</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/cardview_dark_background</item>
     </style>
+
+    <style name="tv_login_page">
+        <item name="android:textSize">@dimen/login_page_text_size</item>
+    </style>
+
+    <style name="test_parent_tv"></style>
 </resources>

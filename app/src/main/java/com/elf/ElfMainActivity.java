@@ -109,7 +109,7 @@ public class ElfMainActivity extends AppCompatActivity
                mainFragment=new ContactsFragment();
                break;
        }
-
+//        mainFragment=new LoginFragment();
         //Replace Fragment Transaction and close the drawer
       fManager.beginTransaction().replace(R.id.frag_holder,mainFragment)
               .addToBackStack("yes")

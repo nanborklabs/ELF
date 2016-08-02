@@ -13,12 +13,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
 
+
+        </style>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="imgview_icon_style" parent="AppTheme">
-        <item name="android:background">@color/colorPrimary</item>
+
         <item name="android:layout_margin">4dp</item>
         <item name="android:padding">@dimen/img_icon_padding</item>
 
@@ -26,7 +28,19 @@
 
     <style name="tv_dash" parent="AppTheme">
         <item name="android:textSize">@dimen/tv_dash_textsize</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/cardview_dark_background</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="tv_login_page">
+        <item name="android:ems">200</item>
+        <item name="android:textSize">@dimen/login_page_text_size</item>
+    </style>
+
+    <style name="test_parent_tv">
+
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/test_parent_tvsize</item>
     </style>
 
 

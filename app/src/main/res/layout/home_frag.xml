@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
 
     android:layout_height="match_parent">
+
+
+
 
     <android.support.v7.widget.CardView
     android:layout_width="match_parent"
     android:layout_marginTop="8dp"
+        
     android:layout_marginLeft="12dp"
+        app:layout_scrollFlags="scroll|enterAlways"
     android:id="@+id/cv_home_frag"
+
     android:layout_marginRight="12dp"
     android:layout_height="@dimen/user_profile_height">
         <LinearLayout
@@ -20,32 +33,31 @@
             <!--Title Board Text-->
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="26dp"
                 android:id="@+id/user_board"
-                android:layout_centerHorizontal="true"
+
                 android:gravity="center"
-                android:layout_margin="8dp"
-                android:textAppearance="?android:textAppearanceLarge"
+                android:layout_margin="4dp"
+                android:textSize="@dimen/samacheer_kalvi_ts"
                 android:textColor="@color/colorPrimary"
-                android:typeface="sans"
-
-
+                android:typeface="serif"
                 android:text="SAMACHEER KALVI"
                 />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/user_dash_height_row"
 
-                android:layout_below="@id/user_board"
+
                 android:orientation="horizontal"
+                android:layout_margin="2dp"
                 android:id="@+id/ll_cv"
                 android:weightSum="5">
 
                 <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_height="@dimen/user_dash_height_row"
                     android:id="@+id/user_logo"
                     android:layout_gravity="center"
                     style="@style/imgview_icon_style"
@@ -53,7 +65,7 @@
 
 
 
-                    android:src="@drawable/ic_account_circle_white_48dp"/>
+                    android:src="@drawable/ic_account_circle_black_48dp"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="60dp"
@@ -66,11 +78,11 @@
                     android:id="@+id/username_home_frag"/>
                 <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_height="@dimen/user_dash_height_row"
                     android:id="@+id/std_logo"
                     android:layout_weight="0.5"
                     style="@style/imgview_icon_style"
-                    android:src="@drawable/ic_local_library_white_48dp"/>
+                    android:src="@drawable/ic_book_black_48dp"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="60dp"
@@ -85,24 +97,25 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/user_dash_height_row"
 
                 android:layout_below="@id/user_board"
                 android:orientation="horizontal"
                 android:id="@+id/ll2_cv"
+                android:layout_marginBottom="2dp"
                 android:weightSum="5">
 
                 <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_height="@dimen/user_dash_height_row"
                     android:id="@+id/school_logo"
                     style="@style/imgview_icon_style"
                     android:layout_weight="0.5"
 
-                    android:src="@drawable/ic_school_white_48dp"/>
+                    android:src="@drawable/ic_school_black_48dp"/>
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_height="@dimen/user_dash_height_row"
                     android:text="School Name"
                     android:layout_weight="2"
                     style="@style/tv_dash"
@@ -110,15 +123,15 @@
                     android:id="@+id/school_name"/>
                 <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_height="@dimen/user_dash_height_row"
                     android:id="@+id/loc_log"
                     android:layout_weight="0.5"
 
                     style="@style/imgview_icon_style"
-                    android:src="@drawable/ic_location_on_white_48dp"/>
+                    android:src="@drawable/ic_location_on_black_48dp"/>
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_height="@dimen/user_dash_height_row"
                     android:text="Location"
                     style="@style/tv_dash"
                     android:layout_weight="2"
@@ -139,20 +152,23 @@
 
     </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_margin="12dp"
-        android:layout_height="match_parent">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
-
-    </android.support.v7.widget.CardView>
+   <GridView
 
 
+    android:layout_margin="4dp"
+       android:layout_marginBottom="8dp"
+       android:padding="8dp"
+       android:verticalSpacing="10dp"
+       app:layout_behavior="@string/appbar_scrolling_view_behavior"
+       android:horizontalSpacing="10dp"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:numColumns="2"
+       android:gravity="center"
+       android:id="@+id/home_grid">
+
+   </GridView>
 
 
 </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>

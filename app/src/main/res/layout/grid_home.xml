@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="2dp"
+    android:padding="4dp"
+    style="@style/cv_elevation"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:weightSum="5"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:id="@+id/subject_title"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/grid_sub_title"
+        android:text="Phsyics"
+        android:gravity="center"
+        android:textSize="22sp"/>
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_weight="3"
+        android:layout_margin="@dimen/grid_sub_title"
+        android:id="@+id/subject_logo"
+        android:padding="@dimen/grid_sub_title"
+        android:layout_height="0dp" />
+    <TextView
+        android:layout_width="100dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_margin="@dimen/grid_sub_title"
+        android:textSize="18sp"
+
+        android:id="@+id/percent"
+        android:layout_height="0dp" />
+
+
+
+</LinearLayout>
+</android.support.v7.widget.CardView>
