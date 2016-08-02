@@ -4,11 +4,10 @@ import android.database.DataSetObserver;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 
-import com.elf.Fragment.NotificationPagerFragment.LessonNotifFragment;
-import com.elf.Fragment.NotificationPagerFragment.TestNotifactionFragment;
-import com.elf.Fragment.NotificationPagerFragment.TopicNotiFragment;
+import com.elf.Fragment.ReportPagerFragments.LessonNotifFragment;
+import com.elf.Fragment.ReportPagerFragments.TestNotifactionFragment;
+import com.elf.Fragment.ReportPagerFragments.TopicNotiFragment;
 
 /**
  * Created by nandhu on 29/7/16.

@@ -1,12 +1,9 @@
 package com.elf;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,10 +15,9 @@ import android.view.MenuItem;
 
 import com.elf.Fragment.ContactsFragment;
 import com.elf.Fragment.HomeFragment;
-import com.elf.Fragment.NotificationFragment;
-import com.elf.Fragment.NotificationPagerFragment.LoginFragment;
+import com.elf.Fragment.ReportsFragment;
 import com.elf.Fragment.PaymentsFragment;
-import com.elf.Fragment.ReportFragment;
+import com.elf.Fragment.NotificationFragment;
 
 import butterknife.ButterKnife;
 
@@ -96,11 +92,11 @@ public class ElfMainActivity extends AppCompatActivity
            case R.id.home:
                mainFragment=new HomeFragment();
                break;
+           case  R.id.report :
+               mainFragment=new ReportsFragment();
+               break;
            case  R.id.noti :
                mainFragment=new NotificationFragment();
-               break;
-           case  R.id.report :
-               mainFragment=new ReportFragment();
                break;
            case  R.id.payments :
                mainFragment=new PaymentsFragment();

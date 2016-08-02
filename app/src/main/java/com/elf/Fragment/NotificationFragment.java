@@ -2,16 +2,15 @@ package com.elf.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.elf.Adapter.NotificationPagerAdapter;
+import com.elf.Adapter.NotificationAdapter;
 import com.elf.R;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,11 +20,10 @@ import butterknife.ButterKnife;
  */
 public class NotificationFragment extends android.support.v4.app.Fragment {
 
-
     private View mView;
-    @BindView(R.id.noti_pager) ViewPager mPager;
-    @BindView(R.id.noti_tabs) TabLayout mTabLayout;
-     FragmentManager fm;
+    @BindView(R.id.noti_list_view)
+    RecyclerView mRecyclerView;
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -39,30 +37,16 @@ public class NotificationFragment extends android.support.v4.app.Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fm=getChildFragmentManager();
-
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-      mView=inflater.inflate(R.layout.noti,container,false);
-       ButterKnife.bind(this,mView);
-        if (mPager==null){
-            Log.d("PAGER","pager null");
-        }
-        if (fm!=null){
-            mPager.setAdapter(new NotificationPagerAdapter(fm));
+       mView=inflater.inflate(R.layout.noti,container,false);
+        ButterKnife.bind(this,mView);
 
-        }
-        else {
-            fm=getChildFragmentManager();
-            mPager.setAdapter(new NotificationPagerAdapter(fm));
-        }
-        mTabLayout.setupWithViewPager(mPager);
+        mRecyclerView.setAdapter(new NotificationAdapter(getContext()));
         return mView;
-
-
     }
 
     @Override

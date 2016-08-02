@@ -1,10 +1,13 @@
 package com.elf.Fragment.TesViewholder;
 
+import android.animation.Animator;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,18 +43,18 @@ public class TestParentViewHolder extends ParentViewHolder   {
         ButterKnife.bind(this,itemView);
         dropdown.setImageDrawable(down_icon);
         final TransitionDrawable mTransitionDrawable=(TransitionDrawable) dropdown.getBackground();
-        mTransitionDrawable.setCrossFadeEnabled(true);
+//        mTransitionDrawable.setCrossFadeEnabled(true);
         dropdown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("Click", "onClick: ");
                 if (isExpanded()){
                     collapseView();
-                    mTransitionDrawable.startTransition(300);
+//                    mTransitionDrawable.startTransition(300);
                 }
                 else {
                     expandView();
-                    mTransitionDrawable.startTransition(300);
+//                    mTransitionDrawable.startTransition(300);
                 }
             }
         });
@@ -61,11 +64,11 @@ public class TestParentViewHolder extends ParentViewHolder   {
 
     @Override
     public void onExpansionToggled(boolean expanded) {
-        if (expanded){
-            dropdown.setImageDrawable(up_icon);
-        }
-        else {
-            dropdown.setImageDrawable(down_icon);
+        if (expanded) {
+            dropdown.animate().rotation(-180).setDuration(300).setInterpolator(new OvershootInterpolator(3.f)).start();
+        } else {
+            dropdown.animate().rotation(180).setDuration(300).
+                    setInterpolator(new DecelerateInterpolator()).start();
         }
     }
 

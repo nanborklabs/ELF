@@ -1,4 +1,4 @@
-package com.elf.Fragment.NotificationPagerFragment;
+package com.elf.Fragment.ReportPagerFragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -1,4 +1,4 @@
-package com.elf.Fragment.NotificationPagerFragment;
+package com.elf.Fragment.ReportPagerFragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,10 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
