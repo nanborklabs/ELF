@@ -27,8 +27,20 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
     private View mView;
     @BindView(R.id.report_pager) ViewPager mPager;
     @BindView(R.id.report_tab) TabLayout mTabLayout;
+    public @BindView(R.id.radio_gro) RadioGroup mRadioGroup;
     private static  int sub_showing=0;
+   public SubjectChanged listerner;
      FragmentManager fm;
+
+
+    public SubjectChanged getListerner() {
+        return listerner;
+    }
+
+    public void setListerner(SubjectChanged listerner) {
+        this.listerner = listerner;
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -44,6 +56,7 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
         super.onCreate(savedInstanceState);
         fm=getChildFragmentManager();
 
+
     }
 
     @Nullable
@@ -53,16 +66,17 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
        ButterKnife.bind(this,mView);
 
         if (fm!=null){
-            mPager.setAdapter(new ReportPagerAdapter(fm));
+            mPager.setAdapter(new ReportPagerAdapter(fm,mRadioGroup,listerner));
 
         }
         else {
             fm=getChildFragmentManager();
-            mPager.setAdapter(new ReportPagerAdapter(fm));
+            mPager.setAdapter(new ReportPagerAdapter(fm, mRadioGroup, listerner));
         }
         RadioGroup button=(RadioGroup) mView.findViewById(R.id.radio_gro);
-
         button.setOnCheckedChangeListener(this);
+
+//        button.setOnCheckedChangeListener(this);
 
 //        button.setOnCheckedChangeListener((RadioGroup.OnCheckedChangeListener) this);
         mTabLayout.setupWithViewPager(mPager);
@@ -132,30 +146,16 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
         super.onStop();
     }
 
-
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-//        RadioButton button=group.findViewById(checkedId);
-        switch (checkedId){
-            case R.id.radio_p:
-
-                    sub_showing=0;
-
-                break;
-            case R.id.radio_m:
-                    sub_showing=1;
-                break;
-            case R.id.radio_b:
-                    sub_showing=3;
-                break;
-            case R.id.radio_c:
-                    sub_showing=2;
-                break;
-            case R.id.radio_cs:
-                    sub_showing=4;
-                break;
-
-        }
-        Log.d("Radio", "onCheckedChanged: "+sub_showing);
+        Log.d("Ichecked changed", "Firing up interface: ");
+//        listerner.subjectChanged(0);
     }
+
+    public interface SubjectChanged{
+        void subjectChanged(int sub);
+    }
+
+
+
 }

@@ -8,6 +8,7 @@ import com.elf.R;
 import com.elf.model.LessonDeatils;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by nandhu on 3/8/16.
@@ -26,6 +27,7 @@ public class LessonChildViewholder extends ChildViewHolder{
      */
     public LessonChildViewholder(View itemView) {
         super(itemView);
+        ButterKnife.bind(this,itemView);
     }
 
     public void bind(LessonDeatils mdetails){

@@ -13,6 +13,7 @@ import com.elf.Fragment.LessonViewholder.LessonParentViewholder;
 import com.elf.R;
 import com.elf.model.LessonDeatils;
 import com.elf.model.Lessoninfo;
+import com.elf.model.Testinfo;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class LessonReportAdapter extends ExpandableRecyclerAdapter<LessonParentV
 
     public Context mContext;
     public LayoutInflater inflater;
-    public LessonReportAdapter(Context mContext,@NonNull List<? extends ParentListItem> parentItemList) {
+    public LessonReportAdapter(Context mContext,List<Lessoninfo> parentItemList) {
         super(parentItemList);
         this.mContext=mContext;
         inflater=LayoutInflater.from(mContext);

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
 import com.elf.Adapter.TestReportAdapter;
+import com.elf.Fragment.ReportsFragment;
 import com.elf.R;
 import com.elf.model.Testdetail;
 import com.elf.model.Testinfo;
@@ -25,9 +26,15 @@ import butterknife.ButterKnife;
 /**
  * Created by nandhu on 29/7/16.
  */
-public class TestReportFragment extends Fragment implements ExpandableRecyclerAdapter.ExpandCollapseListener {
+public class TestReportFragment extends Fragment implements ExpandableRecyclerAdapter.ExpandCollapseListener,ReportsFragment.SubjectChanged {
     public View mview;
     @BindView(R.id.test_noti_recycler_view) RecyclerView mList;
+    ReportsFragment.SubjectChanged mSubjectChanged;
+
+    public void setmSubjectChanged(ReportsFragment.SubjectChanged mSubjectChanged) {
+        this.mSubjectChanged = mSubjectChanged;
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -41,6 +48,21 @@ public class TestReportFragment extends Fragment implements ExpandableRecyclerAd
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getArguments()==null){
+            throw new NullPointerException("Argumetns are null");
+        }
+        else {
+            int Sub_to_Show=getArguments().getInt("SUB");
+            Log.d("Sub to Show", ""+Sub_to_Show);
+
+
+//            once It is found out that which subject is clicked and url obtained
+//            hit the url get input stream
+//            get JSON keys, Make Objects
+//            display objects
+//            you need Asyncs or third party library for syncing
+        }
     }
 
     @Nullable
@@ -96,5 +118,10 @@ public class TestReportFragment extends Fragment implements ExpandableRecyclerAd
     @Override
     public void onListItemCollapsed(int position) {
         Log.d("Expanaded", "onListItemCollapsed: ");
+    }
+
+    @Override
+    public void subjectChanged(int sub) {
+        Log.d("interface got", "subjectChanged: "+sub);
     }
 }

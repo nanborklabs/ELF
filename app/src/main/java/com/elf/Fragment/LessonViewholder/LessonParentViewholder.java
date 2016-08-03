@@ -1,6 +1,7 @@
 package com.elf.Fragment.LessonViewholder;
 
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.elf.model.Lessoninfo;
 
 import butterknife.BindDrawable;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by nandhu on 3/8/16.
@@ -36,7 +38,8 @@ public class LessonParentViewholder extends ParentViewHolder {
      */
     public LessonParentViewholder(View itemView) {
         super(itemView);
-        dropdown.setImageDrawable(down_icon);
+        ButterKnife.bind(this,itemView);
+       dropdown.setImageDrawable(down_icon);
 
     }
 
