@@ -75,6 +75,7 @@
             android:button="@null"
             style="@style/radio_button"
             android:text="P"
+
          />
         <RadioButton android:id="@+id/radio_c"
             android:layout_width="0dp"
