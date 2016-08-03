@@ -26,4 +26,6 @@
     </style>
 
     <style name="test_parent_tv"></style>
+
+    <style name="radio_button"></style>
 </resources>

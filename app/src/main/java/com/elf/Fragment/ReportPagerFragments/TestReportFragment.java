@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
-import com.elf.Adapter.TestNotificationAdapter;
+import com.elf.Adapter.TestReportAdapter;
 import com.elf.R;
 import com.elf.model.Testdetail;
 import com.elf.model.Testinfo;
@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 /**
  * Created by nandhu on 29/7/16.
  */
-public class TestNotifactionFragment extends Fragment implements ExpandableRecyclerAdapter.ExpandCollapseListener {
+public class TestReportFragment extends Fragment implements ExpandableRecyclerAdapter.ExpandCollapseListener {
     public View mview;
     @BindView(R.id.test_noti_recycler_view) RecyclerView mList;
     @Override
@@ -64,7 +64,7 @@ public class TestNotifactionFragment extends Fragment implements ExpandableRecyc
         testinfos.add(info2);
 
 
-        ExpandableRecyclerAdapter mAdapter=new TestNotificationAdapter(getContext(),testinfos);
+        ExpandableRecyclerAdapter mAdapter=new TestReportAdapter(getContext(),testinfos);
 
         mAdapter.setExpandCollapseListener(this);
 

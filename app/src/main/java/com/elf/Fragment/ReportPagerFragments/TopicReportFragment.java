@@ -12,7 +12,7 @@ import com.elf.R;
 /**
  * Created by nandhu on 29/7/16.
  */
-public class TopicNotiFragment extends Fragment {
+public class TopicReportFragment extends Fragment {
 
     public View mView;
     @Override

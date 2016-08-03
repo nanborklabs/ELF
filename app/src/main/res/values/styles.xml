@@ -43,5 +43,14 @@
         <item name="android:textSize">@dimen/test_parent_tvsize</item>
     </style>
 
+    <style name="radio_button">
+        
+
+        <item name="android:textColor">@color/cardview_light_background</item>
+        <item name="android:textSize">18sp</item>
+        
+        
+    </style>
+
 
 </resources>

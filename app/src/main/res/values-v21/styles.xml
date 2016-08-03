@@ -35,4 +35,15 @@
         <item name="android:layout_margin">4dp</item>
         <item name="android:textSize">@dimen/test_parent_tvsize</item>
     </style>
+
+    <style name="radio_button">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/cardview_light_background</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:button">@null</item>
+
+
+    </style>
 </resources>

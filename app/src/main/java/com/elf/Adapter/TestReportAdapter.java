@@ -18,13 +18,13 @@ import java.util.List;
 /**
  * Created by nandhu on 2/8/16.
  */
-public class TestNotificationAdapter extends ExpandableRecyclerAdapter<TestParentViewHolder,TestChildViewHolder> {
+public class TestReportAdapter extends ExpandableRecyclerAdapter<TestParentViewHolder,TestChildViewHolder> {
 
 
 
     private LayoutInflater inflater;
 
-    public TestNotificationAdapter(Context context, List<Testinfo> info) {
+    public TestReportAdapter(Context context, List<Testinfo> info) {
         super(info);
         inflater=LayoutInflater.from(context);
     }

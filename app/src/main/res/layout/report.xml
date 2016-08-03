@@ -60,6 +60,52 @@
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/radio_gro"
+        android:weightSum="5"
+        android:orientation="horizontal">
+        <RadioButton android:id="@+id/radio_p"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+
+            android:button="@null"
+            style="@style/radio_button"
+            android:text="P"
+         />
+        <RadioButton android:id="@+id/radio_c"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            style="@style/radio_button"
+            android:text="C"
+         />
+        <RadioButton android:id="@+id/radio_m"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/radio_button"
+            android:layout_height="wrap_content"
+            android:text="M"
+         />
+        <RadioButton android:id="@+id/radio_cs"
+            android:layout_width="0dp"
+            style="@style/radio_button"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="CS"
+          />
+        <RadioButton android:id="@+id/radio_b"
+            android:layout_width="0dp"
+            style="@style/radio_button"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="CS"
+          />
+    </RadioGroup>
     <android.support.design.widget.TabLayout
         android:id="@+id/report_tab"
         android:layout_width="match_parent"

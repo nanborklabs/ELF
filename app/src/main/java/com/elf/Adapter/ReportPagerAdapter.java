@@ -5,16 +5,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.elf.Fragment.ReportPagerFragments.LessonNotifFragment;
-import com.elf.Fragment.ReportPagerFragments.TestNotifactionFragment;
-import com.elf.Fragment.ReportPagerFragments.TopicNotiFragment;
+import com.elf.Fragment.ReportPagerFragments.LessonReportFragment;
+import com.elf.Fragment.ReportPagerFragments.TestReportFragment;
+import com.elf.Fragment.ReportPagerFragments.TopicReportFragment;
 
 /**
  * Created by nandhu on 29/7/16.
  */
-public class NotificationPagerAdapter extends FragmentStatePagerAdapter {
+public class ReportPagerAdapter extends FragmentStatePagerAdapter {
 
-    public NotificationPagerAdapter(FragmentManager fm) {
+    public ReportPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -47,11 +47,11 @@ public class NotificationPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new TestNotifactionFragment();
+                return new TestReportFragment();
             case 1:
-                return new TopicNotiFragment();
+                return new TopicReportFragment();
             case 2:
-                return new LessonNotifFragment();
+                return new LessonReportFragment();
         }
 
         return null;
