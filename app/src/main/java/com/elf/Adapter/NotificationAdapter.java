@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.elf.R;
+import com.elf.model.NotificationModel;
+
+import java.util.List;
 
 /**
  * Created by nandhu on 3/8/16.
@@ -17,9 +20,11 @@ import com.elf.R;
 public class NotificationAdapter  extends RecyclerView.Adapter<NotificationAdapter.NotifiactionItemHolder>{
     public View mView;
     private Context mContext;
-    public NotificationAdapter(Context context) {
+    private List<NotificationModel> mNotificationModels;
+    private int[] noti_icons={R.drawable.result_noti_icon,R.drawable.finished_icon,R.drawable.started_icon};
+    public NotificationAdapter(Context context, List<NotificationModel> notificationModels) {
         this.mContext=context;
-
+        this.mNotificationModels=notificationModels;
     }
 
     @Override
@@ -30,13 +35,13 @@ public class NotificationAdapter  extends RecyclerView.Adapter<NotificationAdapt
 
     @Override
     public void onBindViewHolder(NotifiactionItemHolder holder, int position) {
-        holder.noti_logo.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_account_circle_black_48dp));
-        holder.textView.setText("TEst completed"+position);
+       holder.textView.setText(mNotificationModels.get(position).getNotification_data());
+        holder.noti_logo.setImageDrawable(ContextCompat.getDrawable(mContext,noti_icons[position]));
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return mNotificationModels.size();
     }
 
 
