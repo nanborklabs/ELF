@@ -59,7 +59,8 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/user_dash_height_row"
                     android:id="@+id/user_logo"
-                    android:layout_gravity="center"
+
+                    android:paddingTop="40dp"
                     style="@style/imgview_icon_style"
                     android:layout_weight="0.5"
 
@@ -68,12 +69,11 @@
                     android:src="@drawable/ic_account_circle_black_48dp"/>
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:text="User Name"
+                    android:layout_height="50dp"
+                    android:text="Krishnan RA"
                     android:layout_weight="2"
                     style="@style/tv_dash"
-                    android:layout_gravity="center"
-                    android:gravity="center"
+
 
                     android:id="@+id/username_home_frag"/>
                 <ImageView
@@ -86,10 +86,10 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="60dp"
-                    android:text="standard"
+                    android:text="12th Std"
                     style="@style/tv_dash"
                     android:layout_weight="2"
-                    android:gravity="center"
+
                     android:id="@+id/std"/>
 
 
@@ -116,10 +116,10 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="@dimen/user_dash_height_row"
-                    android:text="School Name"
+                    android:text="SBIOA"
                     android:layout_weight="2"
                     style="@style/tv_dash"
-                    android:gravity="center"
+
                     android:id="@+id/school_name"/>
                 <ImageView
                     android:layout_width="0dp"
@@ -132,10 +132,10 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="@dimen/user_dash_height_row"
-                    android:text="Location"
+                    android:text="Coimbatore"
                     style="@style/tv_dash"
                     android:layout_weight="2"
-                    android:gravity="center"
+
                     android:id="@+id/location"/>
 
 
@@ -158,9 +158,9 @@
     android:layout_margin="4dp"
        android:layout_marginBottom="8dp"
        android:padding="8dp"
-       android:verticalSpacing="10dp"
+       android:verticalSpacing="5dp"
        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-       android:horizontalSpacing="10dp"
+       android:horizontalSpacing="5dp"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:isScrollContainer="false"

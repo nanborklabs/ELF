@@ -1,9 +1,11 @@
 package com.elf.Fragment.ReportPagerFragments;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter
 import com.elf.Adapter.LessonReportAdapter;
 import com.elf.Fragment.TesViewholder.TestParentViewHolder;
 import com.elf.R;
+import com.elf.RecyclerviewItemDecorator;
 import com.elf.model.LessonDeatils;
 import com.elf.model.Lessoninfo;
 import com.elf.model.Testdetail;
@@ -21,6 +24,7 @@ import com.elf.model.Testdetail;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -31,6 +35,8 @@ public class LessonReportFragment extends Fragment{
     public View mView;
     @BindView(R.id.lesson_rv_list)
     RecyclerView lesson_list;
+
+    RecyclerView.ItemDecoration mDecoration;
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -44,6 +50,8 @@ public class LessonReportFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Drawable mDivider= ContextCompat.getDrawable(getContext(),R.drawable.divider);
+        mDecoration=new RecyclerviewItemDecorator(mDivider);
     }
 
     @Nullable
@@ -58,6 +66,7 @@ public class LessonReportFragment extends Fragment{
         List<Lessoninfo> infoList=new ArrayList<>();
         infoList.add(lessoninfo);
         lesson_list.setLayoutManager(new LinearLayoutManager(getContext()));
+//        lesson_list.addItemDecoration(mDecoration);
         ExpandableRecyclerAdapter mAdapter=new LessonReportAdapter(getContext(),infoList);
         lesson_list.setAdapter(mAdapter);
 

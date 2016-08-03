@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:weightSum="2"
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="50dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -11,7 +11,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Topic"
         android:layout_weight="1"
-        android:gravity="center"
+        android:gravity="left"
+        android:paddingLeft="20dp"
 
         android:layout_gravity="start"
         style="@style/test_parent_tv"
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Topic names"
-        android:layout_gravity="end"
+        android:layout_gravity="left"
 
         style="@style/test_parent_tv"
         android:id="@+id/topic_names" />

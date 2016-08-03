@@ -1,5 +1,7 @@
 package com.elf.Fragment.TopicViewholder;
 
+import android.support.v4.view.GravityCompat;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -30,7 +32,9 @@ public class TopicChidViewholder extends ChildViewHolder {
     }
 
     public void bind(TopicDetail mDetail){
+
         topics.setText(mDetail.getLesson());
         topics.setText("Questions Asked: "+mDetail.getQuestion_asked());
+
     }
 }

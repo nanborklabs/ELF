@@ -31,10 +31,7 @@ public class LessonChildViewholder extends ChildViewHolder{
     }
 
     public void bind(LessonDeatils mdetails){
-       String text="One Mark : "+mdetails.getOne_mark()
-               +"    Six Mark:  "+mdetails.getSix_mark()+
-               "    Two mark:  "+mdetails.getTwo_mark()+
-               "    Ten Mark:  "+mdetails.getTen_mark();
+       String text="One Mark : "+mdetails.getOne_mark();
         weightage.setText(text);
     }
 }

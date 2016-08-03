@@ -2,15 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="140dp"
-        android:id="@+id/elf_logo_login"
-        android:src="@drawable/ic_menu_slideshow"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/elf_login_logo_tmargin" />
-
     <android.support.design.widget.TextInputLayout
         android:id="@+id/uname_tl_login"
         android:layout_width="match_parent"
@@ -18,8 +9,7 @@
         android:layout_marginRight="24dp"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:layout_below="@id/elf_logo_login"
-        android:layout_marginTop="4dp">
+        android:layout_marginTop="180dp">
 
         <EditText
             android:id="@+id/uname_edittext_login"
@@ -51,10 +41,15 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:layout_width="120dp"
-        android:layout_height="70dp"
+        android:layout_width="160dp"
+        android:layout_height="45dp"
         android:layout_below="@id/pasword_tl_login"
         android:layout_centerHorizontal="true"
+        android:foreground="@drawable/ripple"
+        android:background="@color/colorPrimary"
+
+
+        android:textColor="@color/white"
         android:text="@string/Login"
         android:layout_marginTop="@dimen/submit_but_tmargin"
         android:id="@+id/submit_button_login"/>
@@ -62,23 +57,42 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Up"
-        android:layout_marginLeft="20dp"
-        android:id="@+id/signup"
-        style="@style/tv_login_page"
+        android:layout_marginTop="40dp"
+        android:textSize="20sp"
+        android:text="Register"
+        android:id="@+id/textView2"
         android:layout_below="@+id/submit_button_login"
-        android:layout_alignLeft="@+id/pasword_tl_login"
-        android:layout_alignStart="@+id/pasword_tl_login" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:text="Forgot Password?"
-        android:layout_marginRight="20dp"
-        style="@style/tv_login_page"
-        android:id="@+id/forgot_password"
-        android:layout_alignTop="@+id/signup"
-        android:layout_toRightOf="@+id/submit_button_login"
-        android:layout_toEndOf="@+id/submit_button_login" />
+        android:id="@+id/textView3"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Sign In"
+        android:id="@+id/sign_in"
+        android:layout_marginTop="54dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Learning Made Fun"
+        android:id="@+id/fun_text"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/sign_in"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

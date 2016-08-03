@@ -1,8 +1,10 @@
 package com.elf.Fragment.ReportPagerFragments;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,12 +16,14 @@ import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter
 import com.elf.Adapter.TestReportAdapter;
 import com.elf.Fragment.ReportsFragment;
 import com.elf.R;
+import com.elf.RecyclerviewItemDecorator;
 import com.elf.model.Testdetail;
 import com.elf.model.Testinfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -30,6 +34,9 @@ public class TestReportFragment extends Fragment implements ExpandableRecyclerAd
     public View mview;
     @BindView(R.id.test_noti_recycler_view) RecyclerView mList;
     ReportsFragment.SubjectChanged mSubjectChanged;
+
+    RecyclerView.ItemDecoration mDecoration;
+
 
     public void setmSubjectChanged(ReportsFragment.SubjectChanged mSubjectChanged) {
         this.mSubjectChanged = mSubjectChanged;
@@ -43,11 +50,16 @@ public class TestReportFragment extends Fragment implements ExpandableRecyclerAd
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Drawable mDivider= ContextCompat.getDrawable(getContext(),R.drawable.divider);
+        mDecoration=new RecyclerviewItemDecorator(mDivider);
+
+
 
         if (getArguments()==null){
             throw new NullPointerException("Argumetns are null");
@@ -71,15 +83,16 @@ public class TestReportFragment extends Fragment implements ExpandableRecyclerAd
         mview=inflater.inflate(R.layout.test_notifcaton,container,false);
         ButterKnife.bind(this,mview);
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
+//       mList.addItemDecoration(mDecoration);
 
 
         Testdetail deatil=new Testdetail("Eddy current");
         List<Testdetail> deaTestdetails=new ArrayList<>();
         deaTestdetails.add(deatil);
-        Testdetail dea=new Testdetail("heelo thereeee");
+        Testdetail dea=new Testdetail("hello there");
 
-        Testinfo info=new Testinfo("Test no","passed","72%",deaTestdetails);
-        Testinfo info2=new Testinfo("Test no 20","passed","755%",deaTestdetails);
+        Testinfo info=new Testinfo("Test 14","Passed","72%",deaTestdetails);
+        Testinfo info2=new Testinfo("Test 20","Passed","75%",deaTestdetails);
 
         List<Testinfo> testinfos=new ArrayList<>(2);
         testinfos.add(info);

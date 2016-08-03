@@ -11,5 +11,7 @@
     <dimen name="grid_sub_title">2dp</dimen>
     <dimen name="user_dash_height_row">50dp</dimen>
     <dimen name="samacheer_kalvi_ts">20sp</dimen>
-    <dimen name="test_parent_tvsize">18sp</dimen>
+    <dimen name="test_parent_tvsize">16sp</dimen>
+    <dimen name="nfrv_text_margin_left">16dp</dimen>
+    <dimen name="test_status_margin_text_left">4dp</dimen>
 </resources>

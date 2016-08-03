@@ -63,6 +63,7 @@ public class NotificationFragment extends android.support.v4.app.Fragment {
         model_list.add(new NotificationModel(1,"Test completed"));
         model_list.add(new NotificationModel(2,"Started Writing Test"));
         model_list.add(new NotificationModel(1,"Reports have been Generated"));
+        model_list.add(new NotificationModel(2,"You have Passed"));
         return model_list;
     }
 

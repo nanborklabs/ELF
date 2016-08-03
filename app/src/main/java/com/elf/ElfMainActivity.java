@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import com.elf.Fragment.ContactsFragment;
 import com.elf.Fragment.HomeFragment;
+import com.elf.Fragment.ReportPagerFragments.LoginFragment;
 import com.elf.Fragment.ReportsFragment;
 import com.elf.Fragment.PaymentsFragment;
 import com.elf.Fragment.NotificationFragment;
@@ -39,7 +40,7 @@ public class ElfMainActivity extends AppCompatActivity
 
 
         fManager=getSupportFragmentManager();
-        mTrasaction=fManager.beginTransaction();
+        fManager.beginTransaction().replace(R.id.frag_holder,new HomeFragment()).commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -105,7 +106,7 @@ public class ElfMainActivity extends AppCompatActivity
                mainFragment=new ContactsFragment();
                break;
        }
-//        mainFragment=new LoginFragment();
+//      mainFragment=new LoginFragment();
         //Replace Fragment Transaction and close the drawer
       fManager.beginTransaction().replace(R.id.frag_holder,mainFragment)
               .addToBackStack("yes")

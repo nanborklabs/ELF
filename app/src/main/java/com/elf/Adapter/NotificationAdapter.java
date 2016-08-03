@@ -21,7 +21,7 @@ public class NotificationAdapter  extends RecyclerView.Adapter<NotificationAdapt
     public View mView;
     private Context mContext;
     private List<NotificationModel> mNotificationModels;
-    private int[] noti_icons={R.drawable.result_noti_icon,R.drawable.finished_icon,R.drawable.started_icon};
+    private int[] noti_icons={R.drawable.book1,R.drawable.book2,R.drawable.book3,R.drawable.book4};
     public NotificationAdapter(Context context, List<NotificationModel> notificationModels) {
         this.mContext=context;
         this.mNotificationModels=notificationModels;

@@ -36,9 +36,29 @@ public class TopicParentViewholder extends ParentViewHolder {
     public TopicParentViewholder(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
+        dropdown.setImageDrawable(down_icon);
+        dropdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isExpanded()){
+                    collapseView();
+                    dropdown.setImageDrawable(down_icon);
+
+                }
+                else {
+                    expandView();
+                    dropdown.setImageDrawable(up_icon);
+                }
+            }
+        });
 
     }
 
+
+    @Override
+    public boolean shouldItemViewClickToggleExpansion() {
+        return  false;
+    }
 
     public void bind(TopicInfo tv){
         tNo_tv.setText(tv.getTopic_name());

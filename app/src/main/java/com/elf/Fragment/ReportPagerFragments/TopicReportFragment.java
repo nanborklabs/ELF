@@ -1,22 +1,27 @@
 package com.elf.Fragment.ReportPagerFragments;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.elf.Adapter.TopicReportAdapter;
 import com.elf.R;
+import com.elf.RecyclerviewItemDecorator;
 import com.elf.model.TopicDetail;
 import com.elf.model.TopicInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -28,6 +33,8 @@ public class TopicReportFragment extends Fragment {
     public View mView;
     @BindView(R.id.topic_list)
     RecyclerView mList;
+
+    RecyclerView.ItemDecoration mDecoration;
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -41,6 +48,10 @@ public class TopicReportFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Drawable mDivider= ContextCompat.getDrawable(getContext(),R.drawable.divider);
+        mDecoration=new RecyclerviewItemDecorator(mDivider);
+
     }
 
     @Nullable
@@ -49,6 +60,8 @@ public class TopicReportFragment extends Fragment {
        mView=inflater.inflate(R.layout.topicnotification,container,false);
         ButterKnife.bind(this,mView);
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
+//       mList.addItemDecoration(mDecoration);
+
 
 
 //        get list of topics from uRL

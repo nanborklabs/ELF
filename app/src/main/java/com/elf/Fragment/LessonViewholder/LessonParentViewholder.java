@@ -41,7 +41,20 @@ public class LessonParentViewholder extends ParentViewHolder {
         super(itemView);
         ButterKnife.bind(this,itemView);
        dropdown.setImageDrawable(down_icon);
+        dropdown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isExpanded()){
+                    collapseView();
+                    dropdown.setImageDrawable(down_icon);
 
+                }
+                else {
+                    expandView();
+                    dropdown.setImageDrawable(up_icon);
+                }
+            }
+        });
     }
 
     public void bind(Lessoninfo info){
@@ -50,6 +63,7 @@ public class LessonParentViewholder extends ParentViewHolder {
         }
         lesson_no.setText(info.getLesson_no());
         weighatage_mark.setText(""+info.getWeightage());
+
         percent_tv.setText(info.getStatus());
     }
 }

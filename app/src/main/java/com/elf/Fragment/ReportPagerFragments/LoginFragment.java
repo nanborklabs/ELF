@@ -11,6 +11,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.elf.R;
 
@@ -26,9 +27,14 @@ public class LoginFragment extends Fragment {
     public  View mview;
     @BindView(R.id.uname_edittext_login) EditText username_login;
     @BindView(R.id.uname_tl_login) TextInputLayout uname;
+    @BindView(R.id.sign_in)
+    TextView sign_in;
+    @BindView(R.id.fun_text)
+    TextView funTextView;
+
     @BindView(R.id.password_edittext_login) EditText mPassword;
     @BindView(R.id.pasword_tl_login) TextInputLayout mPass;
-    @BindView(R.id.elf_logo_login) ImageView elf_logo;
+
     @BindView(R.id.submit_button_login)
     Button mLogin_button;
 
@@ -63,12 +69,17 @@ public class LoginFragment extends Fragment {
     private void StartAnimations() {
 
 //       Animatiosn for Imagview
-        elf_logo.setAlpha(0.f);
-        elf_logo.animate().alpha(1.f).scaleX(1.1f).scaleY(1.1f)
+        sign_in.setAlpha(0.f);
+        funTextView.setAlpha(0.0f);
+        sign_in.animate().alpha(1.f).scaleX(1.1f).scaleY(1.1f)
                 .setStartDelay(100)
                 .setInterpolator(new LinearInterpolator())
                 .setDuration(400)
                 .start();
+        funTextView.animate().alpha(1.f).setStartDelay(300)
+                .setDuration(200)
+                .start();
+
 
 //        animations for Edite text componenets
 
