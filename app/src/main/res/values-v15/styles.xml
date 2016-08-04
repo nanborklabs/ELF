@@ -3,14 +3,18 @@
 
     <style name="imgview_icon_style">
 
-        <item name="android:padding">@dimen/img_icon_padding</item>
+        <item name="android:gravity">left|center_vertical</item>
         <item name="android:layout_margin">4dp</item>
+        <item name="android:padding">@dimen/img_icon_padding</item>
     </style>
 
     <style name="tv_dash">
         <item name="android:textSize">@dimen/tv_dash_textsize</item>
         <item name="android:textColor">@color/cardview_dark_background</item>
-        <item name="android:gravity">center</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingTop">8dp</item>
     </style>
 
     <style name="tv_login_page">
@@ -19,5 +23,14 @@
 
     <style name="test_parent_tv"></style>
 
-    <style name="radio_button"></style>
+    <style name="radio_button">
+        <item name="android:background">@drawable/radio_button_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/text_color_radio_button</item>
+        <item name="android:foreground">@drawable/ripple</item>
+
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:button">@null</item>
+    </style>
 </resources>
