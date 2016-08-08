@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.elf.PingServer;
@@ -93,7 +92,7 @@ public class LoginFragment extends Fragment {
 
 
 //        making request
-        new PingServer().execute(url);
+        new PingServer(username, password).execute(url);
     }
 
     private void StartAnimations() {

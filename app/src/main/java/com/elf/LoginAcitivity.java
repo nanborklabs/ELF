@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +45,17 @@ public class LoginAcitivity extends AppCompatActivity {
         mLogin_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               startAct();
+                URL url=null;
+                String username=uname.getEditText().getText().toString();
+                String password=mPass.getEditText().getText().toString();
+                String url_string="http://www.hijazboutique.com/elf_ws.svc/CheckParentLogin";
+                try{
+                   url= new URL(url_string);
+                }
+                catch (Exception e){
+                    Log.d("URL", "exception");
+                }
+                new PingServer(username,password).execute(url);
 
             }
         });
