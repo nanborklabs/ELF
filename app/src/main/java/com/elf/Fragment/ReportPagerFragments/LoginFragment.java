@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.elf.PingServer;
 import com.elf.R;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,9 +66,34 @@ public class LoginFragment extends Fragment {
         uname.setTranslationY(-uname.getHeight());
         mPass.setTranslationY(-mPass.getHeight());
         StartAnimations();
+        mLogin_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username=uname.getEditText().getText().toString();
+                String password=mPass.getEditText().getText().toString();
+                sendToserver(username,password);
+            }
+        });
 
 
         return mview;
+    }
+
+    private void sendToserver(String username, String password) {
+        String url_string = "https://example.com/login?user=" + username + "&password=" + password;
+
+//        creating URL
+        URL url=null;
+        try {
+             url = new URL(url_string);
+        } catch (MalformedURLException e) {
+
+            AlertDialog alertDialog = new AlertDialog.Builder(getContext()).setTitle("Webstite down").show();
+        }
+
+
+//        making request
+        new PingServer().execute(url);
     }
 
     private void StartAnimations() {
