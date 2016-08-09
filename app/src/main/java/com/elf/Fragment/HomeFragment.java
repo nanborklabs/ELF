@@ -1,5 +1,7 @@
 package com.elf.Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +26,7 @@ public class HomeFragment extends Fragment {
 
 
     private View mView;
+    private static final String PREFS="LOGIN";
     @BindView(R.id.school_name) TextView mSchoolName;
     @BindView(R.id.location) TextView mLocation;
     @BindView(R.id.std) TextView mStandard;
@@ -51,6 +54,12 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.home_frag, container, false);
         ButterKnife.bind(this, mView);
+
+        SharedPreferences prefs=getContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=prefs.edit();
+        mLocation.setText(prefs.getString("district","no name"));
+        mUsername.setText(prefs.getString("firstname","no school"));
+
         home_grid.setAdapter(new SubjectGridAdapter(getContext()));
         return mView;
     }
