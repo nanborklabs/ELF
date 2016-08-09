@@ -100,7 +100,7 @@ public class LoginAcitivity extends AppCompatActivity {
 
     private void sendServer(String username, final String password) {
         String url_string="http://www.hijazboutique.com/elf_ws.svc/CheckParentLogin";
-        JSONObject object=new JSONObject();
+        final JSONObject object=new JSONObject();
         try {
             object.put("username",username);
             object.put("password",password);
@@ -124,14 +124,19 @@ public class LoginAcitivity extends AppCompatActivity {
                     String Email=object1.getString("EmailAddress");
                     String PArent=object1.getString("ParentId");
                     String phone=object1.getString("PhoneNumber");
+                    String BoardName=object1.getString("BoardName");
+                    String BoardId=object1.getString("BoardId");
+                    String StudentId=object1.getString("StudentId");
+                    String schoolName=object1.getString("InstitutionName");
+                    String Standard=object1.getString("ClassName");
+
+                    Log.d(TAG, "onResponse: Standard "+Standard);
+                    Log.d(TAG, "onResponse: Schoolname "+schoolName);
+                    Log.d(TAG, "onResponse: Boardid  "+BoardId);
+                    Log.d(TAG, "onResponse: BoardName "+BoardName);
                     Log.d(TAG, "onResponse: Status "+LoginStatus);
-                    Log.d(TAG, "onResponse: District "+District);
-                    Log.d(TAG, "onResponse: Firstname "+Firstname);
-                    Log.d(TAG, "onResponse: Lastname "+Lastname);
-                    Log.d(TAG, "onResponse: Email "+Email);
-                    Log.d(TAG, "onResponse: PArent "+PArent);
-                    Log.d(TAG, "onResponse: Phone "+phone);
-                    Log.d(TAG, "onResponse: cityname "+Cityname);
+                    Log.d(TAG, "onResponse: StudentId "+StudentId);
+
                     if (LoginStatus.equals("success") ){
                        NExtactivity(Firstname,Lastname,Email,PArent,phone,Cityname);
 
@@ -145,6 +150,11 @@ public class LoginAcitivity extends AppCompatActivity {
                         editor.putString("phone",phone);
                         editor.putString("district",District);
                         editor.putString("cityname",Cityname);
+                        editor.putString("boardid",BoardId);
+                        editor.putString("boardname",BoardName);
+                        editor.putString("studentid",StudentId);
+                        editor.putString("standard",Standard);
+                        editor.putString("schoolname",schoolName);
                         editor.apply();
 
 
