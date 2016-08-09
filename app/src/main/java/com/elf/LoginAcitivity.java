@@ -52,13 +52,7 @@ public class LoginAcitivity extends AppCompatActivity {
                 String username=uname.getEditText().getText().toString();
                 String password=mPass.getEditText().getText().toString();
                 String url_string="http://www.hijazboutique.com/elf_ws.svc/CheckParentLogin";
-                try{
-                   url= new URL(url_string);
-                }
-                catch (Exception e){
-                    Log.d("URL", "exception");
-                }
-                new PingServer(username,password).execute(url);
+
 
             }
         });

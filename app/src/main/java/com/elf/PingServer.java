@@ -60,29 +60,7 @@ public class PingServer extends AsyncTask<URL,Void,Void> {
 
     @Override
     protected Void doInBackground(URL... params) {
-try {
 
-
-
-        URL url=params[0];
-          final MediaType JSON
-                = MediaType.parse("application/json; charset=utf-8");
-
-        OkHttpClient client = new OkHttpClient();
-        JSONObject object=new JSONObject();
-        object.put("username",username);
-        object.put("password",password);
-
-
-        String post(String url, String json) throws IOException {
-        RequestBody body = RequestBody.create(JSON, json);
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-        Response response = client.newCall(request).execute();
-        return response.body().string();
-    }
 
         return null;
     }
