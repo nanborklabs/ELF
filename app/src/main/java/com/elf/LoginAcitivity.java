@@ -48,6 +48,8 @@ public class LoginAcitivity extends AppCompatActivity {
         mLogin_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 URL url=null;
                 String username=uname.getEditText().getText().toString();
                 String password=mPass.getEditText().getText().toString();
