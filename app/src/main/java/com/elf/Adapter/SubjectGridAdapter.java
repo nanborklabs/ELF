@@ -18,7 +18,7 @@ import com.elf.R;
 public class SubjectGridAdapter extends BaseAdapter {
 
     private Context mContext;
-    private int[] DrwableRes={R.drawable.physics,R.drawable.chemistry,R.drawable.maths,R.drawable.dna};
+    private int[] DrwableRes={R.drawable.physics,R.drawable.chemistry,R.drawable.math,R.drawable.dna};
     public SubjectGridAdapter(Context context) {
         this.mContext=context;
     }
