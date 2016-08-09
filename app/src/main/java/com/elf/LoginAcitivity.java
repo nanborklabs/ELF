@@ -42,6 +42,8 @@ public class LoginAcitivity extends AppCompatActivity {
         uname.setTranslationY(-uname.getHeight());
         mPass.setTranslationY(-mPass.getHeight());
         StartAnimations();
+
+
         mLogin_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
