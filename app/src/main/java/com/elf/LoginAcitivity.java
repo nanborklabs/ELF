@@ -2,8 +2,14 @@ package com.elf;
 
 import android.animation.Animator;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.audiofx.BassBoost;
+import android.provider.Settings;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.elf.Network.ElfRequestQueue;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,12 +42,17 @@ public class LoginAcitivity extends AppCompatActivity {
 
 
     private static final String TAG="Login";
+    private static final String PREFS="LOGIN";
+
+    private static final String NET_TAG="Login_page";
     public View mview;
     @BindView(R.id.uname_edittext_login)
     EditText username_login;
     private ProgressDialog progress;
 
-    @BindView(R.id.uname_tl_login)
+    private ElfRequestQueue queue;
+
+       @BindView(R.id.uname_tl_login)
     TextInputLayout uname;
     @BindView(R.id.password_edittext_login) EditText mPassword;
     @BindView(R.id.pasword_tl_login) TextInputLayout mPass;
@@ -50,14 +62,16 @@ public class LoginAcitivity extends AppCompatActivity {
     TextView funTextView;
     @BindView(R.id.submit_button_login)
     Button mLogin_button;
-    RequestQueue Queue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_frag);
         ButterKnife.bind(this);
-        Queue= Volley.newRequestQueue(this);
+
         progress=new ProgressDialog(this);
+
+        queue=ElfRequestQueue.getInstance(this);
 
         uname.setTranslationY(-uname.getHeight());
         mPass.setTranslationY(-mPass.getHeight());
@@ -84,7 +98,7 @@ public class LoginAcitivity extends AppCompatActivity {
 
     }
 
-    private void sendServer(String username, String password) {
+    private void sendServer(String username, final String password) {
         String url_string="http://www.hijazboutique.com/elf_ws.svc/CheckParentLogin";
         JSONObject object=new JSONObject();
         try {
@@ -118,6 +132,26 @@ public class LoginAcitivity extends AppCompatActivity {
                     Log.d(TAG, "onResponse: PArent "+PArent);
                     Log.d(TAG, "onResponse: Phone "+phone);
                     Log.d(TAG, "onResponse: cityname "+Cityname);
+                    if (LoginStatus.equals("success") ){
+                       NExtactivity(Firstname,Lastname,Email,PArent,phone,Cityname);
+
+//                        save details to shared Prefs
+                        SharedPreferences preferences= getApplicationContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor=preferences.edit();
+                        editor.putString("firstname",Firstname);
+                        editor.putString("lastname",Lastname);
+                        editor.putString("email",Email);
+                        editor.putString("parentid",PArent);
+                        editor.putString("phone",phone);
+                        editor.putString("district",District);
+                        editor.putString("cityname",Cityname);
+                        editor.apply();
+
+
+                    }
+                    else {
+                        showError();
+                    }
 
 
                 } catch (Exception e) {
@@ -129,13 +163,83 @@ public class LoginAcitivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progress.hide();
+                ShowNetorkError();
 
 
-                Log.d(TAG, "Response is Error"+error.getMessage());
+                Log.d(TAG, "Response is Error"+error.getLocalizedMessage());
             }
         });
+        request.setTag(NET_TAG);
 
-        Queue.add(request);
+        queue.addToElfREquestQue(request);
+    }
+
+    private void ShowNetorkError() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginAcitivity.this);
+        builder.setTitle("Could Not connect");
+        builder.setMessage("Please make sure you are connected to Internet");
+
+        String positiveText = getString(android.R.string.ok);
+        builder.setPositiveButton(positiveText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // positive button logic
+
+                        startActivity(new Intent(Settings.ACTION_SETTINGS));
+
+                    }
+                });
+
+
+        AlertDialog dialog = builder.create();
+        // display dialog
+        dialog.show();
+
+
+    }
+
+    private void NExtactivity(String firstname, String lastname, String email, String PArent, String phone, String cityname) {
+        Intent i =new Intent(this,ElfMainActivity.class);
+        i.putExtra("firstname",firstname);
+        i.putExtra("lastname",lastname);
+        i.putExtra("email",PArent);
+        i.putExtra("parent",phone);
+        i.putExtra("phone",cityname);
+        startActivity(i);
+    }
+
+    private void showError() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginAcitivity.this);
+        builder.setTitle("Wrong Details");
+        builder.setMessage("Please Enter Correct details");
+
+        String positiveText = getString(android.R.string.ok);
+        builder.setPositiveButton(positiveText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // positive button logic
+                        uname.getEditText().setText("");
+                        mPass.getEditText().setText("");
+                    }
+                });
+
+        String negativeText = getString(android.R.string.cancel);
+        builder.setNegativeButton(negativeText,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // negative button logic
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        // display dialog
+        dialog.show();
+
+
     }
 
     private void startAct() {
@@ -193,5 +297,11 @@ public class LoginAcitivity extends AppCompatActivity {
                 .start();
                 */
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        queue.cancelElfReques(NET_TAG);
     }
 }
