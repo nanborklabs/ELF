@@ -24,6 +24,7 @@ public class LoginAcitivity extends AppCompatActivity {
     public View mview;
     @BindView(R.id.uname_edittext_login)
     EditText username_login;
+
     @BindView(R.id.uname_tl_login)
     TextInputLayout uname;
     @BindView(R.id.password_edittext_login) EditText mPassword;
