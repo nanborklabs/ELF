@@ -14,4 +14,7 @@
     <dimen name="test_parent_tvsize">16sp</dimen>
     <dimen name="nfrv_text_margin_left">16dp</dimen>
     <dimen name="test_status_margin_text_left">4dp</dimen>
+    <dimen name="test_report_topic_lm">32dp</dimen>
+    <dimen name="test_report_topic_tm">20dp</dimen>
+    <dimen name="test_report_topic_ts">32sp</dimen>
 </resources>

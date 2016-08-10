@@ -13,13 +13,23 @@ public class Testinfo implements ParentListItem {
     public String Testno;
     public String Status;
     public String percent;
+    public String Topic;
+
+    public String getTopic() {
+        return Topic;
+    }
+
+    public void setTopic(String topic) {
+        Topic = topic;
+    }
+
     private List<Testdetail> deatils;
 
-    public Testinfo(String testno, String status, String percent, List<Testdetail> deatil) {
+    public Testinfo(String testno, String status, String percent, String Top) {
         Testno = testno;
         Status = status;
         this.percent = percent;
-        this.deatils=deatil;
+        this.Topic=Top;
     }
 
     public String getTestno() {

@@ -13,7 +13,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.elf.Adapter.ReportPagerAdapter;
+import com.elf.EventBus.ReportRadioButtonEvent;
 import com.elf.R;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -92,28 +95,25 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.radio_p:
-                if (checked){
-                    sub_showing=0;
-                }
-                    break;
+                EventBus.getDefault().post(new ReportRadioButtonEvent("P"));
             case R.id.radio_m:
                 if (checked){
-                    sub_showing=1;
+                    EventBus.getDefault().post(new ReportRadioButtonEvent("M"));
                 }
                     break;
             case R.id.radio_b:
-                if (checked){
-                    sub_showing=3;
+                if (checked) {
+                    EventBus.getDefault().post(new ReportRadioButtonEvent("B"));
                 }
                     break;
             case R.id.radio_c:
                 if (checked){
-                    sub_showing=2;
+                    EventBus.getDefault().post(new ReportRadioButtonEvent("C"));
                 }
                     break;
             case R.id.radio_cs:
                 if (checked){
-                    sub_showing=4;
+                    EventBus.getDefault().post(new ReportRadioButtonEvent("CS"));
                 }
                     break;
         }
@@ -148,7 +148,27 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        Log.d("Ichecked changed", "Firing up interface: ");
+
+      int id=  mRadioGroup.getCheckedRadioButtonId();
+        Log.d("repsort", "onCheckedChanged: "+id);
+        switch(id) {
+            case R.id.radio_p:
+                EventBus.getDefault().post(new ReportRadioButtonEvent("P"));
+                break;
+            case R.id.radio_m:
+                    EventBus.getDefault().post(new ReportRadioButtonEvent("M"));
+                break;
+            case R.id.radio_b:
+                    EventBus.getDefault().post(new ReportRadioButtonEvent("B"));
+                break;
+            case R.id.radio_c:
+                    EventBus.getDefault().post(new ReportRadioButtonEvent("C"));
+                break;
+            case R.id.radio_cs:
+                    EventBus.getDefault().post(new ReportRadioButtonEvent("CS"));
+                  break;
+        }
+
 //        listerner.subjectChanged(0);
     }
 
