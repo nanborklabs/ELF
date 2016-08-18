@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.audiofx.BassBoost;
 import android.provider.Settings;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.elf.Fragment.RegisterFragment;
+import com.elf.Network.CustomRetryPolicy;
 import com.elf.Network.ElfRequestQueue;
 
 import org.json.JSONArray;
@@ -45,10 +48,16 @@ public class LoginAcitivity extends AppCompatActivity {
     private static final String PREFS="LOGIN";
 
     private static final String NET_TAG="Login_page";
+
+    private static final String FORGOT_URL ="www.googel.com";
     public View mview;
     @BindView(R.id.uname_edittext_login)
     EditText username_login;
     private ProgressDialog progress;
+    @BindView(R.id.email_box)
+    TextInputEditText mEmailBox;
+
+    @BindView(R.id.phone_box) TextInputEditText mPhone;
 
     private ElfRequestQueue queue;
 
@@ -56,15 +65,21 @@ public class LoginAcitivity extends AppCompatActivity {
     TextInputLayout uname;
     @BindView(R.id.password_edittext_login) EditText mPassword;
     @BindView(R.id.pasword_tl_login) TextInputLayout mPass;
-
+        @BindView(R.id.login_register_button) Button mRegisterButton;
+    @BindView(R.id.login) Button mForgotButton;
     @BindView(R.id.submit_button_login)
     Button mLogin_button;
+
+    @BindView(R.id.forgot_button_forgot) Button mForgotSubmit;
+    ElfRequestQueue mRequestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_frag);
         ButterKnife.bind(this);
+        mRequestQueue  = ElfRequestQueue.getInstance(this);
+
 
         progress=new ProgressDialog(this);
 
@@ -73,6 +88,7 @@ public class LoginAcitivity extends AppCompatActivity {
         uname.setTranslationY(-uname.getHeight());
         mPass.setTranslationY(-mPass.getHeight());
         StartAnimations();
+
 
 
         mLogin_button.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +107,63 @@ public class LoginAcitivity extends AppCompatActivity {
                 progress.setIndeterminate(true);
 
             }
+        });
+
+        //set click listenere for Register Fragment
+        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final RegisterFragment mFragment=new RegisterFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frag_holder,mFragment)
+                        .commit();
+            }
+        });
+
+
+        //set click action for Forgot Password
+        mForgotButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mview.findViewById(R.id.rl_login).setVisibility(View.INVISIBLE);
+                mview.findViewById(R.id.forgot_password).setVisibility(View.VISIBLE);
+
+            }
+        });
+
+
+        //Forgot final
+        mForgotSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JSONObject object = null;
+                final String email=mEmailBox.getEditableText().toString();
+                final  String phone= mPhone.getEditableText().toString();
+                try{
+                     object = new JSONObject();
+                    object.put("Email",email);
+                    object.put("phone",phone);
+                }
+                catch (Exception e){
+                    Log.d(TAG, "Exception");
+                }
+
+
+                JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST, FORGOT_URL, object, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d(TAG, "onResponse: ");
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse: ");
+                    }
+                });
+                    mRequest.setRetryPolicy(new CustomRetryPolicy());
+                mRequestQueue.addToElfREquestQue(mRequest);
+            }
+
         });
 
     }
@@ -258,35 +331,6 @@ public class LoginAcitivity extends AppCompatActivity {
     private void StartAnimations() {
 
 //       Animatiosn for Imagview
-        sign_in.setAlpha(0.f);
-        funTextView.setAlpha(0.0f);
-        sign_in.animate().alpha(1.f).scaleX(1.2f).scaleY(1.3f)
-                .setStartDelay(100)
-                .setInterpolator(new LinearInterpolator())
-                .setDuration(400).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                funTextView.animate().alpha(1.f).setDuration(300)
-                        .setDuration(200)
-                        .start();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        })
-                .start();
 
 
 //        animations for Edite text componenets
