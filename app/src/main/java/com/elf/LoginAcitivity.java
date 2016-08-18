@@ -56,10 +56,7 @@ public class LoginAcitivity extends AppCompatActivity {
     TextInputLayout uname;
     @BindView(R.id.password_edittext_login) EditText mPassword;
     @BindView(R.id.pasword_tl_login) TextInputLayout mPass;
-    @BindView(R.id.sign_in)
-    TextView sign_in;
-    @BindView(R.id.fun_text)
-    TextView funTextView;
+
     @BindView(R.id.submit_button_login)
     Button mLogin_button;
 

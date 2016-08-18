@@ -74,5 +74,9 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
+    <style name="register_page1_edit_text"></style>
+
+    <style name="autocomplete"></style>
+
 
 </resources>

@@ -135,23 +135,25 @@ public class TestReportFragment extends Fragment implements ExpandableRecyclerAd
                 Log.d(TAG, "got Response");
                 Log.d(TAG, "onResponse: "+response.toString());
 //                  an Array of test reports  i.e test wise for each subject
-                List<Testinfo> mTestObjectsList=new ArrayList<>();
+               /* List<Testinfo> mTestObjectsList=new ArrayList<>();
                 JSONObject mObject;
                 for (int i=0;i<response.length();i++){
                     Log.d(TAG, "for loop");
 //                    getting individual objects by index
                     try {
                         mObject=(JSONObject) response.getJSONObject(i);
-                        Log.d(TAG,"Test id  "+mObject.getString("TestID"));
+                        Log.d(TAG, "onResponse: "+mObject.toString());
                         mTestObjectsList.add(new Testinfo(mObject.getString("TestId"),
                                 mObject.getString("Percentage"),mObject.getString("SubjectName"),mObject.getString("TestStatus")));
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
                 }
+                */
 //                set the object to Adapter
-                mList.setAdapter(new TestReportAdapter(getContext(),mTestObjectsList));
+//                mList.setAdapter(new TestReportAdapter(getContext(),mTestObjectsList));
             }
         }, new Response.ErrorListener() {
             @Override

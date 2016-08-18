@@ -54,25 +54,33 @@
         android:layout_marginTop="@dimen/submit_but_tmargin"
         android:id="@+id/submit_button_login"/>
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:textSize="20sp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:background="@color/white"
+        android:textColor="@color/cardview_dark_background"
         android:text="Register"
-        android:id="@+id/textView2"
+        android:id="@+id/login_register_button"
         android:layout_below="@+id/submit_button_login"
         android:layout_centerHorizontal="true" />
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:text="Forgot Password?"
-        android:id="@+id/textView3"
+        android:background="@color/white"
+        android:textColor="@color/cardview_dark_background"
+        android:id="@+id/login_register_forgot_password"
         android:textSize="20sp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/login_register_button"
         android:layout_centerHorizontal="true" />
 
     <TextView

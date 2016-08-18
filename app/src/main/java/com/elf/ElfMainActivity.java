@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import com.elf.Fragment.ContactsFragment;
 import com.elf.Fragment.HomeFragment;
+import com.elf.Fragment.RegisterFragment;
 import com.elf.Fragment.ReportPagerFragments.LoginFragment;
 import com.elf.Fragment.ReportsFragment;
 import com.elf.Fragment.PaymentsFragment;
@@ -40,7 +41,7 @@ public class ElfMainActivity extends AppCompatActivity
 
 
         fManager=getSupportFragmentManager();
-        fManager.beginTransaction().replace(R.id.frag_holder,new HomeFragment()).commit();
+        fManager.beginTransaction().replace(R.id.frag_holder,new RegisterFragment()).commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
