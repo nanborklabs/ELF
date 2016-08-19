@@ -28,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.elf.Fragment.ForgotPasswordFragment;
 import com.elf.Fragment.RegisterFragment;
 import com.elf.Network.CustomRetryPolicy;
 import com.elf.Network.ElfRequestQueue;
@@ -125,8 +126,8 @@ public class LoginAcitivity extends AppCompatActivity {
         mForgotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mview.findViewById(R.id.rl_login).setVisibility(View.INVISIBLE);
-                mview.findViewById(R.id.forgot_password).setVisibility(View.VISIBLE);
+              getSupportFragmentManager().beginTransaction().replace(R.id.frag_holder,new ForgotPasswordFragment())
+                      .commit();
 
             }
         });

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -17,6 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.elf.Network.CustomRetryPolicy;
 import com.elf.Network.ElfRequestQueue;
 import com.elf.R;
+import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
@@ -85,8 +87,49 @@ public class ForgotPasswordFragment extends Fragment {
             }
         });
 
+        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+           //user has reset the password save it in database associated with this user
+                final String mPass =mPasswordBox.getText().toString();
+                final String mRePass = mRePassBox.getText().toString();
+                submitNewPassword(mPass,mRePass);
+            }
+        });
+
         return mView;
     }
+
+    private void submitNewPassword(String mPass, String mRePass) {
+        final JSONObject mObject = new JSONObject();
+
+        try {
+            mObject.put("UserId", "2");
+            mObject.put("password", mPass);
+        } catch (Exception e) {
+            Log.d(TAG, "submitNewPassword: Exception ");
+
+        }
+
+        JsonObjectRequest mRequest = new JsonObjectRequest(Request.Method.POST, SUBMIT_URL, mObject, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, "onResponse: ");
+
+                //
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "onErrorResponse: ");
+            }
+        });
+        mRequest.setRetryPolicy(new CustomRetryPolicy());
+        mRequestQue.addToElfREquestQue(mRequest);
+
+    }
+
+
 
     private void validateUser(String mEmail, String mPhone) {
         //make objects get Repsonse , if success show reset password page
@@ -103,6 +146,18 @@ public class ForgotPasswordFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(TAG, "onResponse: " + response.toString());
+
+                // if credentials are good show reset page
+                // else  make toast
+
+                if (success(response)){
+                    mView.findViewById(R.id.forgot_password).setVisibility(View.INVISIBLE);
+                    mView.findViewById(R.id.new_password).setVisibility(View.VISIBLE);
+
+                }
+                else{
+                    Toast.makeText(getContext(),"Wrong Credentials , Please Try again",Toast.LENGTH_SHORT).show();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -113,6 +168,11 @@ public class ForgotPasswordFragment extends Fragment {
 
         mRequest.setRetryPolicy(new CustomRetryPolicy());
         mRequestQue.addToElfREquestQue(mRequest);
+    }
+
+    private boolean success(JSONObject response) {
+
+        return true;
     }
 
     @Override
