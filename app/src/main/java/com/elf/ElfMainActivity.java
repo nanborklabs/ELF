@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.elf.Fragment.ContactUsFragment;
 import com.elf.Fragment.ContactsFragment;
 import com.elf.Fragment.HomeFragment;
 import com.elf.Fragment.RegisterFragment;
@@ -41,7 +42,7 @@ public class ElfMainActivity extends AppCompatActivity
 
 
         fManager=getSupportFragmentManager();
-        fManager.beginTransaction().replace(R.id.frag_holder,new RegisterFragment()).commit();
+        fManager.beginTransaction().replace(R.id.frag_holder,new ContactUsFragment()).commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -104,7 +105,7 @@ public class ElfMainActivity extends AppCompatActivity
                mainFragment=new PaymentsFragment();
                break;
            case  R.id.contacts:
-               mainFragment=new ContactsFragment();
+               mainFragment=new ContactUsFragment();
                break;
        }
 //      mainFragment=new LoginFragment();

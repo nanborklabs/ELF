@@ -9,11 +9,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Education Learning Fun"
         android:id="@+id/textView3"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp" />
+        android:layout_marginTop="40dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,17 +21,17 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Learn.Analyze.Conquer."
         android:id="@+id/textView4"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="12dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Repeat"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:id="@+id/textView5"
         android:layout_below="@+id/textView4"
         android:layout_centerHorizontal="true" />
@@ -44,7 +44,7 @@
         android:layout_marginStart="30dp"
         android:text="Contact us"
         android:id="@+id/textView6"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="36dp"
         android:layout_below="@+id/textView5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -66,7 +66,7 @@
     <EditText
         android:layout_width="match_parent"
 
-        android:layout_marginTop="32sp"
+        android:layout_marginTop="24dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:hint="Feedbacks are good!"
