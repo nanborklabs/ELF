@@ -36,7 +36,7 @@ public class LoginAcitivity extends AppCompatActivity {
 
 
     private static final String TAG="Login";
-    private static final String PREFS="LOGIN";
+    private static final String PREFS="ELF_PARENT";
 
     private final static String LOGIN_URL="http://www.hijazboutique.com/elf_ws.svc/CheckParentLogin";
 
@@ -155,6 +155,7 @@ public class LoginAcitivity extends AppCompatActivity {
         try {
             object.put("username",username);
             object.put("password",password);
+            Log.d(TAG, "sendServer: ");
         }
         catch (Exception e){
             Log.d(TAG, "sendServer: "+e.getLocalizedMessage());
@@ -206,6 +207,7 @@ public class LoginAcitivity extends AppCompatActivity {
                         editor.putString("studentid",StudentId);
                         editor.putString("standard",Standard);
                         editor.putString("schoolname",schoolName);
+                        editor.putBoolean("isFirstTime",false);
                         editor.apply();
                         progress.hide();
 
@@ -230,10 +232,10 @@ public class LoginAcitivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progress.hide();
-                ShowNetorkError();
 
 
-                Log.d(TAG, "Response is Error"+error.getLocalizedMessage());
+
+                Log.d(TAG, "Response is Error "+error.getLocalizedMessage());
             }
         });
         request.setTag(NET_TAG);

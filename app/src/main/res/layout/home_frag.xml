@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="26dp"
-                android:id="@+id/user_board"
+                android:id="@+id/home_user_board"
 
                 android:gravity="center"
                 android:layout_margin="4dp"
@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/user_dash_height_row"
 
-                android:layout_below="@id/user_board"
+                android:layout_below="@id/home_user_board"
                 android:orientation="horizontal"
                 android:id="@+id/ll2_cv"
                 android:layout_marginBottom="2dp"
@@ -163,12 +163,13 @@
         android:layout_marginLeft="64dp"
         android:layout_marginRight="64dp"
         android:layout_marginEnd="64dp"
-        android:id="@+id/home_progress_bar"
+
         android:layout_marginStart="64dp"
         android:layout_gravity="bottom|center_horizontal"
         android:visibility="invisible"
         android:layout_marginBottom="150dp"
         android:layout_marginTop="200dp"
+        android:id="@+id/home_progress_bar"
         />
 
     <GridView

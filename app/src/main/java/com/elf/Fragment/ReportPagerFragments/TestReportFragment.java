@@ -16,12 +16,15 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.elf.Adapter.TestReportAdapter;
 import com.elf.EventBus.ReportRadioButtonEvent;
 import com.elf.Fragment.ReportsFragment;
 import com.elf.Network.ElfRequestQueue;
 import com.elf.R;
 import com.elf.model.Testinfo;
+import com.google.gson.JsonArray;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -45,9 +48,8 @@ import butterknife.ButterKnife;
 public class TestReportFragment extends Fragment {
     public View mview;
 
-    private static String subjectId="4";
-    private static String StudentId= "12";
-    private final static  String TAG="TEST FRAGMENT";
+  
+    private final static  String TAG="REPORT_TEST FRAGMENT";
     @BindView(R.id.test_noti_recycler_view) RecyclerView mList;
 
     @BindView(R.id.test_page_progress)
@@ -91,31 +93,31 @@ public class TestReportFragment extends Fragment {
         //            populate Subject Id here
             case "P":
 
-                subjectId="1";
+           
 
                 break;
             case "M":
-                subjectId="1";
+           
                 break;
             case "C":
-                subjectId="1";
+            
                 break;
             case "CS":
-                subjectId="1";
+            
                 break;
             case "B":
-                subjectId="1";
+              
                 break;
            default:
-               subjectId="1";
+             
                break;
         }
         //          mkae request and get back response
         //        nake objects from  response & show it in { @link mList }
         try {
            object =new JSONObject();
-            object.put("StudentId","1");
-            object.put("SubjectId","11");
+            object.put("studentId","1");
+            object.put("subjectId","11");
 
         }
         catch (Exception e ){
@@ -190,8 +192,8 @@ public class TestReportFragment extends Fragment {
         //Request body
         final JSONObject mObject = new JSONObject();
         try {
-            mObject.put("StudentId","1");
-            mObject.put("SubjectId","11");
+            mObject.put("studentId","1");
+            mObject.put("subjectId","11");
 
         }
         catch (Exception e) {
@@ -204,20 +206,34 @@ public class TestReportFragment extends Fragment {
             @Override
             public void onResponse(JSONArray response) {
 
-                JSONObject mRsp = null;
-                try {
-                mRsp  = response.getJSONObject(0);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                List<Testinfo> mTestObjectsList=new ArrayList<>();
+                JSONObject mObject;
+                for (int i=0;i<response.length();i++){
+
+                    //                    getting individual objects by index
+                    try {
+                        mObject=(JSONObject) response.getJSONObject(i);
+                        Log.d(TAG, "onResponse: "+mObject.toString());
+                        mTestObjectsList.add(new Testinfo(mObject.getString("TestId"),
+                                mObject.getString("TestStatus"),
+                                mObject.getString("Percentage")
+                                ,mObject.getString("SubjectName")));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
-                Log.d(TAG, "onResponse: "+mRsp.toString());
-                mbar.setVisibility(View.INVISIBLE);
+
+//                set the object to Adapter
+                mList.setAdapter(new TestReportAdapter(getContext(),mTestObjectsList));
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "onErrorResponse: ");
+                Log.d(TAG, "onErrorResponse: " +error.getLocalizedMessage());
+                mbar.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -231,8 +247,10 @@ public class TestReportFragment extends Fragment {
         mview=inflater.inflate(R.layout.test_notifcaton,container,false);
         ButterKnife.bind(this,mview);
 
-        mbar.setVisibility(View.VISIBLE);
         mbar.setIndeterminate(true);
+        mbar.setVisibility(View.VISIBLE);
+        Log.d(TAG, "onCreateView: Progress bar");
+
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return mview;

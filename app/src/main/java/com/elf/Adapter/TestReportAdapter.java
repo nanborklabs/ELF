@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.elf.R;
 import com.elf.model.Testinfo;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,16 +42,17 @@ String TAG="Adapter";
         if (inflater==null){
             inflater=LayoutInflater.from(parent.getContext());
         }
-        View v=inflater.inflate(R.layout.test_report_item,parent,false);
+        View v=inflater.inflate(R.layout.test_report_rv_item,parent,false);
         return new TestHolder(v);
     }
 
     @Override
     public void onBindViewHolder(TestHolder holder, int position) {
-        holder.topic.setText(mList.get(position).getTopic());
-        holder.testno.setText(mList.get(position).getTestno());
-        holder.percent.setText(mList.get(position).getPercent());
-        holder.status.setText(mList.get(position).getStatus());
+        holder.mSubjectName.setText(mList.get(position).getTopic());
+        holder.mTopicName.setText("Trignomentry");
+//        holder..setText(mList.get(position).getTestno());
+        holder.mPercent.setText(mList.get(position).getPercent());
+        holder.mStatus.setText(mList.get(position).getStatus());
     }
 
     @Override
@@ -59,18 +62,21 @@ String TAG="Adapter";
 
 
     public static class TestHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.test_report_item_topic)
-        TextView topic;
-        @BindView(R.id.test_report_item_testno)
-        TextView testno;
-        @BindView(R.id.test_report_item_status)
-        TextView status;
-        @BindView(R.id.test_report_item_percent)
-        TextView percent;
+
+
+        TextView mStatus;
+        TextView mPercent;
+        TextView mTopicName;
+        TextView mSubjectName;
+
+
 
         public TestHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            mSubjectName =  (TextView)itemView.findViewById(R.id.test_report_item_subject_name);
+            mStatus =  (TextView)itemView.findViewById(R.id.test_report_item_status);
+            mTopicName =  (TextView)itemView.findViewById(R.id.test_report_item_topic_name);
+            mPercent =  (TextView)itemView.findViewById(R.id.test_report_item_percent);
         }
     }
 }

@@ -60,7 +60,15 @@ private static final String TAG="HOMEFRAGMENT";
     @BindView(R.id.home_location) TextView mLocation;
     @BindView(R.id.home_user_name) TextView mStudentName;
     @BindView(R.id.home_school_name) TextView mSchoolName;
+    @BindView(R.id.home_user_board) TextView mboardName;
 
+
+    //the values which hold the data
+    String sStudentName;
+    String sSchoolName;
+    String sLocation;
+    String sBoard;
+    String sClass;
 
     @BindView(R.id.home_progress_bar)
     ProgressBar mbar;
@@ -93,6 +101,7 @@ private static final String TAG="HOMEFRAGMENT";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: ");
 
         //instatniate Reuquest queue
         mRequestQueue=ElfRequestQueue.getInstance(getContext());
@@ -105,10 +114,18 @@ private static final String TAG="HOMEFRAGMENT";
 
         //get dash board Deatils of Student , that is show overall status
 
+        //todo:get student id dynamically double check it
+        getFields();
+
+        mStudentId = "1";
         prepareDashBoardFor(mStudentId);
 
 
 
+    }
+
+    private void getFields() {
+        final s
     }
 
 
@@ -132,8 +149,11 @@ private static final String TAG="HOMEFRAGMENT";
         JsonArrayRequest request =new JsonArrayRequest(Request.Method.POST, url, object, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+
+
                 try {
                     for (int i = 0; i < response.length(); i++) {
+                        Log.d(TAG, "onResponse: for loop");
                         JSONObject object = (JSONObject) response.getJSONObject(i);
                         String subjectname = object.getString("SubjectName");
                         String percentage = object.getString("Percentage");
@@ -162,9 +182,11 @@ private static final String TAG="HOMEFRAGMENT";
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d(TAG, "Errrod in Response "+error.getLocalizedMessage());
+                mbar.setVisibility(View.INVISIBLE);
 
             }
         });
+        mRequestQueue.addToElfREquestQue(request);
 
     }
 
@@ -190,6 +212,8 @@ private static final String TAG="HOMEFRAGMENT";
         mbar.setVisibility(View.VISIBLE);
 
         populateInfodetails();
+
+
         if (mAdapter==null){
             Log.d(TAG, "Adapter not prepared");
         }
@@ -200,11 +224,15 @@ private static final String TAG="HOMEFRAGMENT";
 
     private void populateInfodetails() {
         final SharedPreferences sp = getContext().getSharedPreferences(PREFS,Context.MODE_PRIVATE);
-        mSchoolName.setText(sp.getString("firstname","null"));
-        mLocation.setText(sp.getString("Location","null"));
-        mStudentName.setText(sp.getString("cityname","null"));
-        mClass.setText(sp.getString("standard","null"));
+        mSchoolName.setText(sp.getString("schoolname","Nandha"));
+        mLocation.setText(sp.getString("Location","Trichy"));
+        mStudentName.setText(sp.getString("firstname","10th"));
+        mClass.setText(sp.getString("standard","nandah"));
+        mboardName.setText(sp.getString("board","CBSE"));
     }
+
+
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

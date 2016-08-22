@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_weight="1"
-            android:layout_below="@id/user_board"
+            android:layout_below="@id/home_user_board"
             android:orientation="horizontal"
             android:id="@+id/ll_cv"
             android:weightSum="5">

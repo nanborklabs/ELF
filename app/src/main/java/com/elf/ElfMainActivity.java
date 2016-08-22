@@ -1,5 +1,8 @@
 package com.elf;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,9 +13,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.toolbox.StringRequest;
 import com.elf.Fragment.ContactUsFragment;
 import com.elf.Fragment.ContactsFragment;
 import com.elf.Fragment.HomeFragment;
@@ -28,12 +33,28 @@ public class ElfMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
+
+    private static final String TAG = "MAIN ACTIVITY";
     Fragment mainFragment;
     private static FragmentManager fManager;
     private static FragmentTransaction mTrasaction;
+
+    private static final String PREFS = "ELF_PARENT";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d(TAG, "onCreate: ");
+
+        //check whether coming for the firs ttime, if yes show
+        // login Activity
+        if (isFirstTime()){
+            final Intent i =new Intent(this,LoginAcitivity.class);
+            startActivity(i);
+        }
+        final SharedPreferences sf = getSharedPreferences(PREFS,Context.MODE_PRIVATE);
+        final SharedPreferences.Editor sfEditor =sf.edit();
+        sfEditor.putBoolean("isFirstTime",false);
 
         setContentView(R.layout.activity_elf_main);
         ButterKnife.bind(this);
@@ -51,6 +72,11 @@ public class ElfMainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private boolean isFirstTime() {
+        final SharedPreferences mPrefs = getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        return  mPrefs.getBoolean("isFirstTime",true);
     }
 
     @Override

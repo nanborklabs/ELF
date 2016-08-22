@@ -50,7 +50,7 @@ public class LessonReportFragment extends Fragment{
     JsonArrayRequest mRequest=null;
     List<Lessoninfo> mLessonlist;
 
-    private static final String TAG="LESSON_REPORT";
+    private static final String TAG="REPORT_LESSON_REPORT";
 
     //    the recyceler view tha display
     @BindView(R.id.lesson_rv_list)
@@ -187,11 +187,7 @@ public class LessonReportFragment extends Fragment{
 
 
 
-        //create Adapter
-        if (mAdapter == null){
-            mAdpaterRequestMade =true;
-          makeRequest_AddToAdapter();
-        }
+
 
     }
 
@@ -207,13 +203,11 @@ public class LessonReportFragment extends Fragment{
 
         lesson_list.setLayoutManager(new LinearLayoutManager(getContext()));
         if (mAdapter==null ) {
-            if (mAdpaterRequestMade) {
-                //waiting for response
-            } else {
+
                 makeRequest_AddToAdapter();
             }
 
-        }
+
         return mView;
     }
 
