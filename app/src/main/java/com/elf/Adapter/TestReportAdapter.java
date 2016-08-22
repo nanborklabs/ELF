@@ -8,12 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
-import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
-import com.elf.Fragment.TesViewholder.TestChildViewHolder;
-import com.elf.Fragment.TesViewholder.TestParentViewHolder;
 import com.elf.R;
-import com.elf.model.Testdetail;
 import com.elf.model.Testinfo;
 
 import java.util.List;
@@ -34,13 +29,17 @@ String TAG="Adapter";
 
     public TestReportAdapter(Context context, List<Testinfo> info) {
        this.mContext=context;
-        inflater=LayoutInflater.from(context);
-        Log.d(TAG, "TestReportAdapter: ");
+
+
+
         this.mList=info;
     }
 
     @Override
     public TestHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (inflater==null){
+            inflater=LayoutInflater.from(parent.getContext());
+        }
         View v=inflater.inflate(R.layout.test_report_item,parent,false);
         return new TestHolder(v);
     }
@@ -48,14 +47,14 @@ String TAG="Adapter";
     @Override
     public void onBindViewHolder(TestHolder holder, int position) {
         holder.topic.setText(mList.get(position).getTopic());
+        holder.testno.setText(mList.get(position).getTestno());
         holder.percent.setText(mList.get(position).getPercent());
-        holder.percent.setText(mList.get(position).getPercent());
-        holder.percent.setText(mList.get(position).getStatus());
+        holder.status.setText(mList.get(position).getStatus());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mList.size();
     }
 
 

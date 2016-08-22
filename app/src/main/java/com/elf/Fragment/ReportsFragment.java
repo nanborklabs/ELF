@@ -1,5 +1,7 @@
 package com.elf.Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.elf.Adapter.ReportPagerAdapter;
 import com.elf.EventBus.ReportRadioButtonEvent;
@@ -28,21 +31,24 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
 
 
     private View mView;
+
+
+    @BindView(R.id.report_username) TextView mUserName;
+    @BindView(R.id.report_class) TextView mClassname;
+
+
+    //the vie view pager for each subject
     @BindView(R.id.report_pager) ViewPager mPager;
     @BindView(R.id.report_tab) TabLayout mTabLayout;
+
+    //the radio group of subjects
     public @BindView(R.id.radio_gro) RadioGroup mRadioGroup;
-    private static  int sub_showing=0;
-   public SubjectChanged listerner;
+
+
      FragmentManager fm;
 
 
-    public SubjectChanged getListerner() {
-        return listerner;
-    }
 
-    public void setListerner(SubjectChanged listerner) {
-        this.listerner = listerner;
-    }
 
     @Override
     public void onDestroyView() {
@@ -68,13 +74,17 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
       mView=inflater.inflate(R.layout.report,container,false);
        ButterKnife.bind(this,mView);
 
+        populateInfo();
+        RadioButton rb = (RadioButton)mRadioGroup.findViewById(R.id.radio_p);
+        rb.setChecked(true);
+
         if (fm!=null){
-            mPager.setAdapter(new ReportPagerAdapter(fm,mRadioGroup,listerner));
+            mPager.setAdapter(new ReportPagerAdapter(fm));
 
         }
         else {
             fm=getChildFragmentManager();
-            mPager.setAdapter(new ReportPagerAdapter(fm, mRadioGroup, listerner));
+            mPager.setAdapter(new ReportPagerAdapter(fm));
         }
         RadioGroup button=(RadioGroup) mView.findViewById(R.id.radio_gro);
         button.setOnCheckedChangeListener(this);
@@ -86,6 +96,12 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
         return mView;
 
 
+    }
+
+    private void populateInfo() {
+        final SharedPreferences sf = getContext().getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
+        mUserName.setText(sf.getString("firstname","null"));
+        mClassname.setText(sf.getString("classname","null"));
     }
 
     public void onRadioButtonClicked(View view) {
@@ -118,7 +134,7 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
                     break;
         }
 
-        Log.d("Radio button lcicked", "button "+sub_showing);
+
     }
 
     @Override
@@ -149,6 +165,9 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
 
+
+        //each fragment must register itself with this evetn and should change subject id and make request
+        //according to that
       int id=  mRadioGroup.getCheckedRadioButtonId();
         Log.d("repsort", "onCheckedChanged: "+id);
         switch(id) {
@@ -169,12 +188,9 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
                   break;
         }
 
-//        listerner.subjectChanged(0);
+
     }
 
-    public interface SubjectChanged{
-        void subjectChanged(int sub);
-    }
 
 
 

@@ -5,14 +5,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 import android.widget.RadioGroup;
 
 import com.elf.Fragment.ReportPagerFragments.LessonReportFragment;
 import com.elf.Fragment.ReportPagerFragments.TestReportFragment;
-import com.elf.Fragment.ReportPagerFragments.TopicReportFragment;
 import com.elf.Fragment.ReportsFragment;
-import com.elf.R;
 
 /**
  * Created by nandhu on 29/7/16.
@@ -20,20 +17,16 @@ import com.elf.R;
 public class ReportPagerAdapter extends FragmentStatePagerAdapter {
 
 
-//    variable to show which radio button is clicked
-    private static int sub_showing=0;
-    public RadioGroup mRadioGroup;
-    ReportsFragment.SubjectChanged listener;
-    public ReportPagerAdapter(FragmentManager fm, RadioGroup mRadioGroup, ReportsFragment.SubjectChanged listerner) {
+
+
+    public ReportPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.mRadioGroup=mRadioGroup;
-        this.listener=listerner;
-//        this.mRadioGroup.setOnCheckedChangeListener(this);
+
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
 
@@ -42,9 +35,8 @@ public class ReportPagerAdapter extends FragmentStatePagerAdapter {
         switch (position){
             case 0:
                 return "Test";
+
             case 1:
-                return "Topic";
-            case 2:
                 return "Lesson";
 
         }
@@ -62,23 +54,21 @@ public class ReportPagerAdapter extends FragmentStatePagerAdapter {
         switch (position){
             case 0:
               TestReportFragment testReportFragment=new TestReportFragment();
-                testReportFragment.setmSubjectChanged(listener);
+
                 mFragment=testReportFragment;
                 break;
             case 1:
-                mFragment=  new TopicReportFragment();
+                LessonReportFragment lessonReportFragment=new LessonReportFragment();
+                mFragment=  lessonReportFragment;
                 break;
-            case 2:
-                mFragment= new LessonReportFragment();
-                break;
+
         }
 
         //pass the urls' here for the three fragmetns
         // each Fragment has Different URl for each topic,lesson,Test pull accordingly
-        Bundle b=new Bundle();
-        b.putInt("SUB",sub_showing);
 
-        mFragment.setArguments(b);
+
+
 
 
 

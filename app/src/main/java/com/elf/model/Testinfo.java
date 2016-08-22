@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by nandhu on 2/8/16.
  */
-public class Testinfo implements ParentListItem {
+public class Testinfo {
     public String Testno;
     public String Status;
     public String percent;
@@ -23,7 +23,6 @@ public class Testinfo implements ParentListItem {
         Topic = topic;
     }
 
-    private List<Testdetail> deatils;
 
     public Testinfo(String testno, String status, String percent, String Top) {
         Testno = testno;
@@ -56,20 +55,7 @@ public class Testinfo implements ParentListItem {
         this.percent = percent;
     }
 
-    @Override
-    public List<Testdetail> getChildItemList() {
-        if (deatils==null){
-            Log.d("null", "getChildItemList:=0 ");
-        }
-        return deatils;
-    }
 
-    public void setDeatils(List<Testdetail> deatils) {
-        this.deatils = deatils;
-    }
 
-    @Override
-    public boolean isInitiallyExpanded() {
-        return false;
-    }
+
 }

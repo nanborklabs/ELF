@@ -1,68 +1,82 @@
 package com.elf.Adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
-import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
-import com.elf.Fragment.LessonViewholder.LessonChildViewholder;
-import com.elf.Fragment.LessonViewholder.LessonParentViewholder;
 import com.elf.R;
-import com.elf.model.LessonDeatils;
 import com.elf.model.Lessoninfo;
-import com.elf.model.Testinfo;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by nandhu on 3/8/16.
  */
-public class LessonReportAdapter extends ExpandableRecyclerAdapter<LessonParentViewholder,LessonChildViewholder>{
+public class LessonReportAdapter extends RecyclerView.Adapter<LessonReportAdapter.Lessonholder>{
 
-    /**
-     * Primary constructor. Sets up {@link #mParentItemList} and {@link #mItemList}.
-     * <p>
-     * Changes to {@link #mParentItemList} should be made through add/remove methods in
-     * {@link ExpandableRecyclerAdapter}
-     *
-     * @param parentItemList List of all {@link ParentListItem} objects to be
-     *                       displayed in the RecyclerView that this
-     *                       adapter is linked to
-     */
 
     public Context mContext;
+    private static final String TAG="LESSON ADAPTER";
     public LayoutInflater inflater;
-    public LessonReportAdapter(Context mContext,List<Lessoninfo> parentItemList) {
-        super(parentItemList);
-        this.mContext=mContext;
+    private List<Lessoninfo> mlist;
+
+    public LessonReportAdapter(Context mContext, List<Lessoninfo> mlist) {
+        this.mContext = mContext;
+        this.mlist = mlist;
+        Log.d(TAG, "LessonReportAdapter: ");
         inflater=LayoutInflater.from(mContext);
     }
 
-
     @Override
-    public LessonParentViewholder onCreateParentViewHolder(ViewGroup parentViewGroup) {
-        View mView=inflater.inflate(R.layout.test_parent,parentViewGroup,false);
-        return new LessonParentViewholder(mView);
+    public Lessonholder onCreateViewHolder(ViewGroup parent, int viewType) {
+       if (inflater==null) {
+           inflater = LayoutInflater.from(parent.getContext());
+       }
+        View view =inflater.inflate(R.layout.lesson_report_item,parent,false);
+        return new Lessonholder(view);
     }
 
     @Override
-    public LessonChildViewholder onCreateChildViewHolder(ViewGroup childViewGroup) {
-        View mView=inflater.inflate(R.layout.test_child,childViewGroup,false);
-        return new LessonChildViewholder(mView);
+    public void onBindViewHolder(Lessonholder holder, int position) {
+        holder.mLessonname.setText(mlist.get(position).getmLessonName());
+        holder.mpercent.setText(mlist.get(position).getmPercentage());
+        holder.mRightAnswer.setText(mlist.get(position).getmCorrectQuestions());
+        holder.qasked.setText(mlist.get(position).getmQuestionsAksed());
+
     }
 
     @Override
-    public void onBindParentViewHolder(LessonParentViewholder parentViewHolder, int position, ParentListItem parentListItem) {
-        Lessoninfo lessoninfo=(Lessoninfo)parentListItem;
-        parentViewHolder.bind(lessoninfo);
+    public int getItemCount() {
+        return mlist.size();
     }
 
-    @Override
-    public void onBindChildViewHolder(LessonChildViewholder childViewHolder, int position, Object childListItem) {
-        LessonDeatils deatils=(LessonDeatils)childListItem;
-        childViewHolder.bind(deatils);
+
+    public static class Lessonholder extends  RecyclerView.ViewHolder {
+        @BindView(R.id.lesson_report_lesson_name)
+        TextView mLessonname;
+        @BindView(R.id.lesson_report_percent)
+        TextView mpercent;
+        @BindView(R.id.lesson_report_q_asked)
+        TextView qasked;
+        @BindView(R.id.lesson_report_right_answer)
+        TextView mRightAnswer;
+
+
+
+
+
+        public Lessonholder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this,itemView);
+        }
     }
+
+
 }

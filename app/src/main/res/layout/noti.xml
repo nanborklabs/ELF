@@ -60,7 +60,7 @@
 
                 style="@style/tv_dash"
 
-                android:id="@+id/std"/>
+                android:id="@+id/noti_std"/>
 
 
 

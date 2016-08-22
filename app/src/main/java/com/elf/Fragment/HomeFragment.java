@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,10 +24,10 @@ import com.elf.Adapter.SubjectGridAdapter;
 import com.elf.Network.ElfRequestQueue;
 import com.elf.R;
 import com.elf.model.SubjectHomeModel;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,16 +41,31 @@ import butterknife.ButterKnife;
 public class HomeFragment extends Fragment {
 
 private static final String TAG="HOMEFRAGMENT";
+
+    //the content root for this fragment
     private View mView;
+    //the single reuqeust queue for this app
     ElfRequestQueue mRequestQueue;
+
+    //prefes file
     private static final String PREFS="LOGIN";
-    @BindView(R.id.school_name) TextView mSchoolName;
-    @BindView(R.id.location) TextView mLocation;
-    @BindView(R.id.std) TextView mStandard;
-    @BindView(R.id.user_board) TextView muserBoad;
-    @BindView(R.id.username_home_frag) TextView mUsername;
+
+    //the webservice for DashBoard
+
+    private static final String url="http://www.hijazboutique.com/elf_ws.svc/GetSubjects";
+
+    // info views
+
+    @BindView(R.id.home_class) TextView mClass;
+    @BindView(R.id.home_location) TextView mLocation;
+    @BindView(R.id.home_user_name) TextView mStudentName;
+    @BindView(R.id.home_school_name) TextView mSchoolName;
+
+
     @BindView(R.id.home_progress_bar)
     ProgressBar mbar;
+
+    //the cardview which holds all
     @BindView(R.id.cv_home_frag) CardView mDash;
     @BindView(R.id.home_grid)
     GridView home_grid;
@@ -59,6 +73,9 @@ private static final String TAG="HOMEFRAGMENT";
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
     SubjectGridAdapter mAdapter;
+
+    //the student ID which the parent listens
+    private String  mStudentId;
 
 
 
@@ -76,25 +93,42 @@ private static final String TAG="HOMEFRAGMENT";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //instatniate Reuquest queue
         mRequestQueue=ElfRequestQueue.getInstance(getContext());
 
+        //get the subjects list , a student can be subscribed to any subjects
         subjectList=new ArrayList<>();
-        prefs = getContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-        editor=prefs.edit();
-        String studentID=prefs.getString("studentid","no name");
-        Log.d(TAG, "student id:"+studentID);
 
-        JSONObject object=new JSONObject();
+
+
+
+        //get dash board Deatils of Student , that is show overall status
+
+        prepareDashBoardFor(mStudentId);
+
+
+
+    }
+
+
+    private void prepareDashBoardFor(String mStudentId) {
+
+        getResponse(mStudentId);
+
+    }
+
+    private void getResponse(String mStudentId) {
+        //preparing Request Body
+        final  JSONObject object = new JSONObject();
         try {
-            object.put("studentId",studentID);
+            object.put("studentId",mStudentId);
         }
         catch (Exception e){
             Log.d(TAG, "exception putting object"+e.getLocalizedMessage());
 
         }
-        String url="http://www.hijazboutique.com/elf_ws.svc/GetSubjects";
-
-
+        //preparing Request and Handling Response
         JsonArrayRequest request =new JsonArrayRequest(Request.Method.POST, url, object, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -117,12 +151,12 @@ private static final String TAG="HOMEFRAGMENT";
 
 
                 }
-                    catch(Exception e){
-                        Log.d(TAG, "Exception in Response" + e.getLocalizedMessage());
-                    }
-
-
+                catch(Exception e){
+                    Log.d(TAG, "Exception in Response" + e.getLocalizedMessage());
                 }
+
+
+            }
 
         }, new Response.ErrorListener() {
             @Override
@@ -132,12 +166,19 @@ private static final String TAG="HOMEFRAGMENT";
             }
         });
 
-        mRequestQueue.addToElfREquestQue(request);
+    }
 
+    //returns Student ID
+    //// TODO: 18-08-2016  what if two students are there?
+    private String getStudentIdfromPrefs() {
 
+        if (getContext()!=null){
+            prefs = getContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+            editor=prefs.edit();
+            return prefs.getString("studentid","no name");
+        }
 
-
-
+        return "";
     }
 
     @Nullable
@@ -148,20 +189,21 @@ private static final String TAG="HOMEFRAGMENT";
         mbar.setIndeterminate(true);
         mbar.setVisibility(View.VISIBLE);
 
-
-
-
-        mLocation.setText(prefs.getString("district","no name"));
-        mUsername.setText(prefs.getString("firstname","no school"));
-        mSchoolName.setText(prefs.getString("schoolname","no name"));
-        mStandard.setText(prefs.getString("standard","no name"));
-        muserBoad.setText(prefs.getString("boardname","no board"));
+        populateInfodetails();
         if (mAdapter==null){
             Log.d(TAG, "Adapter not prepared");
         }
 
 
         return mView;
+    }
+
+    private void populateInfodetails() {
+        final SharedPreferences sp = getContext().getSharedPreferences(PREFS,Context.MODE_PRIVATE);
+        mSchoolName.setText(sp.getString("firstname","null"));
+        mLocation.setText(sp.getString("Location","null"));
+        mStudentName.setText(sp.getString("cityname","null"));
+        mClass.setText(sp.getString("standard","null"));
     }
 
     @Override
@@ -189,15 +231,5 @@ private static final String TAG="HOMEFRAGMENT";
         super.onStop();
     }
 
-    public class AdaperReady{
-        public boolean ready;
 
-        public boolean isReady() {
-            return ready;
-        }
-
-        public void setReady(boolean ready) {
-            this.ready = ready;
-        }
-    }
 }

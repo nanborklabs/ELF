@@ -1,30 +1,26 @@
 package com.elf.Fragment.ReportPagerFragments;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
+import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
 import com.elf.Adapter.TestReportAdapter;
 import com.elf.EventBus.ReportRadioButtonEvent;
 import com.elf.Fragment.ReportsFragment;
 import com.elf.Network.ElfRequestQueue;
 import com.elf.R;
-import com.elf.RecyclerviewItemDecorator;
-import com.elf.model.Testdetail;
 import com.elf.model.Testinfo;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,7 +33,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -47,25 +42,26 @@ import butterknife.ButterKnife;
  *
  *
  */
-public class TestReportFragment extends Fragment implements ExpandableRecyclerAdapter.ExpandCollapseListener,ReportsFragment.SubjectChanged {
+public class TestReportFragment extends Fragment {
     public View mview;
 
     private static String subjectId="4";
     private static String StudentId= "12";
     private final static  String TAG="TEST FRAGMENT";
     @BindView(R.id.test_noti_recycler_view) RecyclerView mList;
-    ReportsFragment.SubjectChanged mSubjectChanged;
+
+    @BindView(R.id.test_page_progress)
+    ProgressBar mbar;
+
 
     private final static String TEST_URL="http://www.hijazboutique.com/elf_ws.svc/GetTestReport";
 
-    ElfRequestQueue mElfRequestQueue;
-
-    RecyclerView.ItemDecoration mDecoration;
+    ElfRequestQueue mRequestQueue;
 
 
-    public void setmSubjectChanged(ReportsFragment.SubjectChanged mSubjectChanged) {
-        this.mSubjectChanged = mSubjectChanged;
-    }
+    List<Testinfo> mTestObjectsList;
+
+
 
 
 
@@ -80,7 +76,8 @@ public class TestReportFragment extends Fragment implements ExpandableRecyclerAd
 
     }
 
-    /*this method is called when radio button is clicked in parent framgent with  String id (inside Event) */
+    /*this method is called when radio button
+    is clicked in parent framgent with  String id (inside Event) */
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ReportRadioButtonEvent event) {
@@ -88,11 +85,10 @@ public class TestReportFragment extends Fragment implements ExpandableRecyclerAd
         JSONObject object=null;
         JsonArrayRequest mRequest=null;
 
-//        get the name of subject clicked from event
+        //        get the name of subject clicked from event
         String Subject=event.getmSubjectClicked();
         switch (Subject){
-//            populate Subject Id here
-//
+        //            populate Subject Id here
             case "P":
 
                 subjectId="1";
@@ -114,8 +110,8 @@ public class TestReportFragment extends Fragment implements ExpandableRecyclerAd
                subjectId="1";
                break;
         }
-//          mkae request and get back response
-//        nake objects from  response & show it in { @link mList }
+        //          mkae request and get back response
+        //        nake objects from  response & show it in { @link mList }
         try {
            object =new JSONObject();
             object.put("StudentId","1");
@@ -126,34 +122,36 @@ public class TestReportFragment extends Fragment implements ExpandableRecyclerAd
             Log.d(TAG, "Exception in Json");
         }
 
-//        Request asking for Test reports( common fro all objects)
-//        returns Testno,status percent, topic
+        //        Request asking for Test reports( common fro all objects)
+        //        returns Testno,status percent, topic
 
             mRequest=new JsonArrayRequest(Request.Method.POST, TEST_URL, object, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Log.d(TAG, "got Response");
                 Log.d(TAG, "onResponse: "+response.toString());
-//                  an Array of test reports  i.e test wise for each subject
-               /* List<Testinfo> mTestObjectsList=new ArrayList<>();
+                     //                  an Array of test reports  i.e test wise for each subject
+                List<Testinfo> mTestObjectsList=new ArrayList<>();
                 JSONObject mObject;
                 for (int i=0;i<response.length();i++){
                     Log.d(TAG, "for loop");
-//                    getting individual objects by index
+                    //                    getting individual objects by index
                     try {
                         mObject=(JSONObject) response.getJSONObject(i);
                         Log.d(TAG, "onResponse: "+mObject.toString());
                         mTestObjectsList.add(new Testinfo(mObject.getString("TestId"),
-                                mObject.getString("Percentage"),mObject.getString("SubjectName"),mObject.getString("TestStatus")));
+                                mObject.getString("Percentage")
+                                ,mObject.getString("SubjectName")
+                                ,mObject.getString("TestStatus")));
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
                 }
-                */
+
 //                set the object to Adapter
-//                mList.setAdapter(new TestReportAdapter(getContext(),mTestObjectsList));
+                mList.setAdapter(new TestReportAdapter(getContext(),mTestObjectsList));
             }
         }, new Response.ErrorListener() {
             @Override
@@ -162,28 +160,69 @@ public class TestReportFragment extends Fragment implements ExpandableRecyclerAd
             }
         });
 
-        mElfRequestQueue.addToElfREquestQue(mRequest);
+        mRequestQueue.addToElfREquestQue(mRequest);
 
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Drawable mDivider= ContextCompat.getDrawable(getContext(),R.drawable.divider);
-        mDecoration=new RecyclerviewItemDecorator(mDivider);
+
         EventBus.getDefault().register(this);
-        mElfRequestQueue=ElfRequestQueue.getInstance(getContext());
+
+        //ge the Register Queue
+        mRequestQueue =ElfRequestQueue.getInstance(getContext());
+
+        //send Request with Student ID and Subject ID
+        
+        prepareRequest();
 
 
-//todo:what happens if fragment is created for first time?
-        if (getArguments()==null){
-            throw new NullPointerException("Argumetns are null");
+        
+        
+        
+            //todo:what happens if fragment is created for first time?
+       
+    }
+
+    private void prepareRequest() {
+        
+        //Request body
+        final JSONObject mObject = new JSONObject();
+        try {
+            mObject.put("StudentId","1");
+            mObject.put("SubjectId","11");
+
         }
-        else {
-            int Sub_to_Show=getArguments().getInt("SUB");
-            Log.d("Sub to Show", ""+Sub_to_Show);
-
+        catch (Exception e) {
+            Log.d(TAG, "");
         }
+        
+        //Request Building
+        
+        final JsonArrayRequest mSubjectReq = new JsonArrayRequest(Request.Method.POST, TEST_URL, mObject, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                JSONObject mRsp = null;
+                try {
+                mRsp  = response.getJSONObject(0);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.d(TAG, "onResponse: "+mRsp.toString());
+                mbar.setVisibility(View.INVISIBLE);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "onErrorResponse: ");
+            }
+        });
+
+        mRequestQueue.addToElfREquestQue(mSubjectReq);
+        
     }
 
     @Nullable
@@ -191,6 +230,9 @@ public class TestReportFragment extends Fragment implements ExpandableRecyclerAd
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mview=inflater.inflate(R.layout.test_notifcaton,container,false);
         ButterKnife.bind(this,mview);
+
+        mbar.setVisibility(View.VISIBLE);
+        mbar.setIndeterminate(true);
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return mview;
@@ -209,21 +251,8 @@ public class TestReportFragment extends Fragment implements ExpandableRecyclerAd
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+    
+    
 
-    @Override
-    public void onListItemExpanded(int position) {
-
-
-        Log.d("Expanaded", "onListItemExpanded: " + position);
-    }
-
-    @Override
-    public void onListItemCollapsed(int position) {
-        Log.d("Expanaded", "onListItemCollapsed: ");
-    }
-
-    @Override
-    public void subjectChanged(int sub) {
-        Log.d("interface got", "subjectChanged: "+sub);
-    }
+  
 }

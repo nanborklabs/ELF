@@ -27,7 +27,7 @@ public class SubjectGridAdapter extends BaseAdapter {
     public int Animated_item_count;
     public int last_pos=-1;
     private List<SubjectHomeModel>  mlist;
-    private int[] DrwableRes={R.drawable.physics,R.drawable.chemistry,R.drawable.math,R.drawable.dna};
+    private int[] DrwableRes={R.drawable.physics,R.drawable.chemistry,R.drawable.maths,R.drawable.dna};
     public SubjectGridAdapter(Context context, List<SubjectHomeModel> subjectList) {
         this.mContext=context;
         this.mlist=subjectList;

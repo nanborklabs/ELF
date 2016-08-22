@@ -7,54 +7,48 @@ import java.util.List;
 /**
  * Created by nandhu on 3/8/16.
  */
-public class Lessoninfo implements ParentListItem{
-    public  String lesson_no;
-    public  int weightage;
-    public String Status;
-    public List<LessonDeatils> mDetails;
+public class Lessoninfo {
+    private String mLessonName;
+    private String mPercentage;
+    private String mQuestionsAksed;
+    private String mCorrectQuestions;
 
-    public Lessoninfo(String lesson_no, int weightage, String status,List<LessonDeatils> mlist) {
-        this.lesson_no = lesson_no;
-        this.weightage = weightage;
-        Status = status;
-        this.mDetails=mlist;
+    public Lessoninfo(String mLessonName, String mPercentage, String mQuestionsAksed, String mCorrectQuestions) {
+        this.mLessonName = mLessonName;
+        this.mPercentage = mPercentage;
+        this.mQuestionsAksed = mQuestionsAksed;
+        this.mCorrectQuestions = mCorrectQuestions;
     }
 
-    public String getLesson_no() {
-        return lesson_no;
+    public String getmLessonName() {
+        return mLessonName;
     }
 
-    public void setLesson_no(String lesson_no) {
-        this.lesson_no = lesson_no;
+    public void setmLessonName(String mLessonName) {
+        this.mLessonName = mLessonName;
     }
 
-    public int getWeightage() {
-        return weightage;
+    public String getmPercentage() {
+        return mPercentage;
     }
 
-    public void setWeightage(int weightage) {
-        this.weightage = weightage;
+    public void setmPercentage(String mPercentage) {
+        this.mPercentage = mPercentage;
     }
 
-    public String getStatus() {
-        return Status;
+    public String getmQuestionsAksed() {
+        return mQuestionsAksed;
     }
 
-    public void setStatus(String status) {
-        Status = status;
+    public void setmQuestionsAksed(String mQuestionsAksed) {
+        this.mQuestionsAksed = mQuestionsAksed;
     }
 
-    public void setmDetails(List<LessonDeatils> mDetails) {
-        this.mDetails = mDetails;
+    public String getmCorrectQuestions() {
+        return mCorrectQuestions;
     }
 
-    @Override
-    public List<LessonDeatils> getChildItemList() {
-        return mDetails;
-    }
-
-    @Override
-    public boolean isInitiallyExpanded() {
-        return false;
+    public void setmCorrectQuestions(String mCorrectQuestions) {
+        this.mCorrectQuestions = mCorrectQuestions;
     }
 }

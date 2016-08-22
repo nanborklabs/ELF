@@ -39,7 +39,7 @@
                 style="@style/tv_dash"
                 android:layout_weight="2"
 
-                android:id="@+id/noti_username"/>
+                android:id="@+id/report_username"/>
             <ImageView
                 android:layout_marginLeft="32dp"
                 android:layout_width="0dp"
@@ -62,7 +62,7 @@
 
                 style="@style/tv_dash"
 
-                android:id="@+id/std"/>
+                android:id="@+id/report_class"/>
 
 
 

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.elf.Adapter.NotificationAdapter;
 import com.elf.R;
@@ -30,8 +31,10 @@ public class NotificationFragment extends android.support.v4.app.Fragment {
     @BindView(R.id.noti_list_view)
     RecyclerView mRecyclerView;
 
-    //the
-
+    //the view
+    @BindView(R.id.noti_std)
+    TextView mStandard;
+    @BindView(R.id.noti_username) TextView mUserName;
 
     //the strings whch are get from shared prefs
     private String mStudentName;
@@ -56,8 +59,8 @@ public class NotificationFragment extends android.support.v4.app.Fragment {
 
     private void readUserDetailsFromSharePrefs() {
         final SharedPreferences sp =getContext().getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
-        mStudentName = sp.getString("FirstName","No name");
-        mClass = sp.getString("ClassName","null");
+        mStudentName = sp.getString("firstname","No name");
+        mClass = sp.getString("standard","null");
     }
 
     @Nullable
@@ -69,9 +72,10 @@ public class NotificationFragment extends android.support.v4.app.Fragment {
 //        make it an object and pass it the adapter
 //        and dont forget to call notify data item inserted inserted
 //        Todo:notify data item inserted
-//        generateNotification()
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(new NotificationAdapter(getContext(),generateNotification()));
+        mUserName.setText(mStudentName);
+        mStandard.setText(mClass);
         return mView;
     }
 
