@@ -10,7 +10,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/uname_tl_login"
+        android:id="@+id/login_user_name"
         android:layout_width="match_parent"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
@@ -28,14 +28,14 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/pasword_tl_login"
+        android:id="@+id/login_password_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
 
         android:padding="8dp"
-        android:layout_below="@id/uname_tl_login"
+        android:layout_below="@id/login_user_name"
         android:layout_marginTop="4dp">
 
         <EditText
@@ -50,7 +50,7 @@
     <Button
         android:layout_width="160dp"
         android:layout_height="45dp"
-        android:layout_below="@id/pasword_tl_login"
+        android:layout_below="@id/login_password_box"
         android:layout_centerHorizontal="true"
         android:foreground="@drawable/ripple"
         android:background="@color/colorPrimary"
@@ -59,7 +59,7 @@
         android:textColor="@color/white"
         android:text="@string/Login"
         android:layout_marginTop="@dimen/submit_but_tmargin"
-        android:id="@+id/submit_button_login"/>
+        android:id="@+id/login_login_button"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
         android:textColor="@color/cardview_dark_background"
         android:text="Register"
         android:id="@+id/login_register_button"
-        android:layout_below="@+id/submit_button_login"
+        android:layout_below="@+id/login_login_button"
         android:layout_centerHorizontal="true" />
 
     <Button

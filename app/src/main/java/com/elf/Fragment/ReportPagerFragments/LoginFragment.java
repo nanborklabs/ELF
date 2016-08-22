@@ -30,16 +30,16 @@ public class LoginFragment extends Fragment {
 
     public  View mview;
     @BindView(R.id.uname_edittext_login) EditText username_login;
-    @BindView(R.id.uname_tl_login) TextInputLayout uname;
+    @BindView(R.id.login_user_name) TextInputLayout uname;
     @BindView(R.id.sign_in)
     TextView sign_in;
     @BindView(R.id.fun_text)
     TextView funTextView;
 
     @BindView(R.id.password_edittext_login) EditText mPassword;
-    @BindView(R.id.pasword_tl_login) TextInputLayout mPass;
+    @BindView(R.id.login_password_box) TextInputLayout mPass;
 
-    @BindView(R.id.submit_button_login)
+    @BindView(R.id.login_login_button)
     Button mLogin_button;
 
     @Override

@@ -73,9 +73,18 @@ public class ForgotPasswordFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-     mView=inflater.inflate(R.layout.forgot_password,container,false);
+     mView=inflater.inflate(R.layout.forgot,container,false);
+          /*this page has 2 root layouts
+        * 1 contains fields to get Email and phone number
+        * 2 contains fields to set Password */
         ButterKnife.bind(this,mView);
+
+        //first set the Email check page visible
+
         mView.findViewById(R.id.forgot_password).setVisibility(View.VISIBLE);
+
+        // send email and phone details to server
+
         mCheckButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,13 +96,22 @@ public class ForgotPasswordFragment extends Fragment {
             }
         });
 
+        //button which sets new password
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
            //user has reset the password save it in database associated with this user
                 final String mPass =mPasswordBox.getText().toString();
                 final String mRePass = mRePassBox.getText().toString();
-                submitNewPassword(mPass,mRePass);
+                if (mPass.equals(mRePass)){
+                    submitNewPassword(mPass,mRePass);
+                }
+                else {
+                    //passwords do not match
+                    Toast.makeText(getContext(),"Mis Match password",Toast.LENGTH_SHORT).show();
+
+                }
+
             }
         });
 
@@ -151,6 +169,7 @@ public class ForgotPasswordFragment extends Fragment {
                 // else  make toast
 
                 if (success(response)){
+                    //switch the visiblity of layout
                     mView.findViewById(R.id.forgot_password).setVisibility(View.INVISIBLE);
                     mView.findViewById(R.id.new_password).setVisibility(View.VISIBLE);
 

@@ -1,5 +1,7 @@
 package com.elf.Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +30,14 @@ public class NotificationFragment extends android.support.v4.app.Fragment {
     @BindView(R.id.noti_list_view)
     RecyclerView mRecyclerView;
 
+    //the
+
+
+    //the strings whch are get from shared prefs
+    private String mStudentName;
+    private String mClass;
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -41,6 +51,13 @@ public class NotificationFragment extends android.support.v4.app.Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        readUserDetailsFromSharePrefs();
+    }
+
+    private void readUserDetailsFromSharePrefs() {
+        final SharedPreferences sp =getContext().getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
+        mStudentName = sp.getString("FirstName","No name");
+        mClass = sp.getString("ClassName","null");
     }
 
     @Nullable
