@@ -146,6 +146,7 @@ private static final String TAG="HOMEFRAGMENT";
             public void onResponse(JSONArray response) {
 
                 Log.d(TAG, "REsponse is " + response.toString());
+
                 try {
                     for (int i = 0; i < response.length(); i++) {
 
