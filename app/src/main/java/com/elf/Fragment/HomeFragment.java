@@ -148,6 +148,7 @@ private static final String TAG="HOMEFRAGMENT";
                 Log.d(TAG, "REsponse is " + response.toString());
                 try {
                     for (int i = 0; i < response.length(); i++) {
+
                         JSONObject object = (JSONObject) response.getJSONObject(i);
                         String subjectname = object.getString("SubjectName");
                         String percentage = object.getString("Percentage");
