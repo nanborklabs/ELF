@@ -11,10 +11,11 @@
     android:layout_marginTop="12dp"
 
 
-    >
+    android:background="#f66d6d">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent" android:layout_height="180dp">
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="#f66d6d">
 
 
         <TextView
@@ -29,11 +30,13 @@
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12sp"
+            android:textColor="#ffffff" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8sp"
             android:layout_marginLeft="16dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -41,7 +44,9 @@
             android:id="@+id/textView4"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/lesson_report_lesson_name" />
+            android:layout_below="@+id/lesson_report_lesson_name"
+            android:textColor="#050404"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,17 +58,23 @@
             android:layout_marginTop="8dp"
             android:layout_below="@+id/textView4"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:textColor="#050404"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
            android:textSize="22sp"
             android:text="Large Text"
-            android:layout_marginTop="32dp"
             android:id="@+id/lesson_report_percent"
+            android:textColor="#ffffff"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignRight="@+id/lesson_report_lesson_name"
+            android:layout_alignEnd="@+id/lesson_report_lesson_name"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -73,7 +84,9 @@
             android:id="@+id/lesson_report_q_asked"
             android:layout_alignTop="@+id/textView4"
             android:layout_toRightOf="@+id/textView4"
-            android:layout_toEndOf="@+id/textView4" />
+            android:layout_toEndOf="@+id/textView4"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -84,7 +97,9 @@
             android:id="@+id/lesson_report_right_answer"
             android:layout_below="@+id/lesson_report_q_asked"
             android:layout_alignLeft="@+id/lesson_report_q_asked"
-            android:layout_alignStart="@+id/lesson_report_q_asked" />
+            android:layout_alignStart="@+id/lesson_report_q_asked"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
 
 
     </RelativeLayout>

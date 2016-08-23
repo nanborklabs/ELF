@@ -49,7 +49,16 @@ String TAG="Adapter";
     @Override
     public void onBindViewHolder(TestHolder holder, int position) {
         holder.mSubjectName.setText(mList.get(position).getTopic());
-        holder.mTopicName.setText("Trignomentry");
+        String mTopciName=null;
+        switch (position){
+            case 0:
+                mTopciName = "Trignomentry";
+                break;
+            case 1 :
+                mTopciName = "Vector Algebra";
+        }
+
+        holder.mTopicName.setText(mTopciName);
 //        holder..setText(mList.get(position).getTestno());
         holder.mPercent.setText(mList.get(position).getPercent());
         holder.mStatus.setText(mList.get(position).getStatus());

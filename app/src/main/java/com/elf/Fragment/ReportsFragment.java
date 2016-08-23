@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.elf.Adapter.ReportPagerAdapter;
 import com.elf.EventBus.ReportRadioButtonEvent;
 import com.elf.R;
+import com.elf.UserPrefs.MyPrefs;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -101,9 +102,9 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
     }
 
     private void populateInfo() {
-        final SharedPreferences sf = getContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-        mUserName.setText(sf.getString("firstname","null"));
-        mClassname.setText(sf.getString("classname","null"));
+        MyPrefs myPrefs = new MyPrefs(getContext());
+        mUserName.setText(myPrefs.getStudentName());
+        mClassname.setText(myPrefs.getStandard());
     }
 
     public void onRadioButtonClicked(View view) {

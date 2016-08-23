@@ -64,7 +64,7 @@ private static final String TAG="HOMEFRAGMENT";
     @BindView(R.id.home_user_name) TextView mStudentName;
     @BindView(R.id.home_school_name) TextView mSchoolName;
 
-    @BindView(R.id.user_board) TextView mUserBoard;
+    @BindView(R.id.home_user_board) TextView mUserBoard;
 
 
     @BindView(R.id.home_progress_bar)
@@ -133,7 +133,8 @@ private static final String TAG="HOMEFRAGMENT";
         //preparing Request Body
         final  JSONObject object = new JSONObject();
         try {
-            object.put("studentId",mStudentId);
+//            // TODO: 23/8/16  studnet id
+            object.put("studentId","1");
         }
         catch (Exception e){
             Log.d(TAG, "exception putting object"+e.getLocalizedMessage());
@@ -144,8 +145,8 @@ private static final String TAG="HOMEFRAGMENT";
             @Override
             public void onResponse(JSONArray response) {
 
-                Log.d(TAG, "REsponse is "+ response.toString());
-               /* try {
+                Log.d(TAG, "REsponse is " + response.toString());
+                try {
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject object = (JSONObject) response.getJSONObject(i);
                         String subjectname = object.getString("SubjectName");
@@ -154,19 +155,19 @@ private static final String TAG="HOMEFRAGMENT";
                         Log.d(TAG, "response subject name " + subjectname);
 
                         Log.d(TAG, "response percentage " + percentage);
-                        subjectList.add(new SubjectHomeModel(subjectname,percentage));
+                        subjectList.add(new SubjectHomeModel(subjectname, percentage));
 
                     }
 
-                    mAdapter=new SubjectGridAdapter(getContext(),subjectList);
+                    mAdapter = new SubjectGridAdapter(getContext(), subjectList);
                     mbar.setVisibility(View.INVISIBLE);
                     home_grid.setAdapter(mAdapter);
 
 
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     Log.d(TAG, "Exception in Response" + e.getLocalizedMessage());
-*/
+
+                }
             }
 
 
