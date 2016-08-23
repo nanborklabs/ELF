@@ -25,8 +25,8 @@ public class Testinfo {
 
 
     public Testinfo(String testno, String status, String percent, String Top) {
-        Testno = testno;
-        Status = status;
+        this.Testno = testno;
+        this.Status = status;
         this.percent = percent;
         this.Topic=Top;
     }
