@@ -35,6 +35,7 @@ public class NotificationFragment extends android.support.v4.app.Fragment {
     @BindView(R.id.noti_std)
     TextView mStandard;
     @BindView(R.id.noti_username) TextView mUserName;
+    private static final String PREFS="ELF_PARENT";
 
     //the strings whch are get from shared prefs
     private String mStudentName;
@@ -58,7 +59,7 @@ public class NotificationFragment extends android.support.v4.app.Fragment {
     }
 
     private void readUserDetailsFromSharePrefs() {
-        final SharedPreferences sp =getContext().getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
+        final SharedPreferences sp =getContext().getSharedPreferences("ELF", Context.MODE_PRIVATE);
         mStudentName = sp.getString("firstname","No name");
         mClass = sp.getString("standard","null");
     }

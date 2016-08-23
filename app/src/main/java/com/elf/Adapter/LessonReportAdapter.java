@@ -31,7 +31,7 @@ public class LessonReportAdapter extends RecyclerView.Adapter<LessonReportAdapte
         this.mContext = mContext;
         this.mlist = mlist;
         Log.d(TAG, "LessonReportAdapter: ");
-        inflater=LayoutInflater.from(mContext);
+
     }
 
     @Override

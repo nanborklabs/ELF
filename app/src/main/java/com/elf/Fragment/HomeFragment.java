@@ -23,6 +23,7 @@ import com.elf.Adapter.SubjectGridAdapter;
 
 import com.elf.Network.ElfRequestQueue;
 import com.elf.R;
+import com.elf.UserPrefs.MyPrefs;
 import com.elf.model.SubjectHomeModel;
 
 import org.json.JSONArray;
@@ -48,11 +49,13 @@ private static final String TAG="HOMEFRAGMENT";
     ElfRequestQueue mRequestQueue;
 
     //prefes file
-    private static final String PREFS="LOGIN";
+    private static final String PREFS="ELF_PARENT";
 
     //the webservice for DashBoard
 
     private static final String url="http://www.hijazboutique.com/elf_ws.svc/GetSubjects";
+
+    private MyPrefs mPrefs;
 
     // info views
 
@@ -61,17 +64,21 @@ private static final String TAG="HOMEFRAGMENT";
     @BindView(R.id.home_user_name) TextView mStudentName;
     @BindView(R.id.home_school_name) TextView mSchoolName;
 
+    @BindView(R.id.user_board) TextView mUserBoard;
+
 
     @BindView(R.id.home_progress_bar)
     ProgressBar mbar;
+
+
+    private static  HomeFragment mFragment;
 
     //the cardview which holds all
     @BindView(R.id.cv_home_frag) CardView mDash;
     @BindView(R.id.home_grid)
     GridView home_grid;
     List<SubjectHomeModel> subjectList;
-    SharedPreferences prefs;
-    SharedPreferences.Editor editor;
+
     SubjectGridAdapter mAdapter;
 
     //the student ID which the parent listens
@@ -94,6 +101,8 @@ private static final String TAG="HOMEFRAGMENT";
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        mPrefs =new MyPrefs(getContext());
         //instatniate Reuquest queue
         mRequestQueue=ElfRequestQueue.getInstance(getContext());
 
@@ -102,6 +111,8 @@ private static final String TAG="HOMEFRAGMENT";
 
 
 
+
+        mStudentId = mPrefs.getStudentId();
 
         //get dash board Deatils of Student , that is show overall status
 
@@ -132,7 +143,9 @@ private static final String TAG="HOMEFRAGMENT";
         JsonArrayRequest request =new JsonArrayRequest(Request.Method.POST, url, object, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                try {
+
+                Log.d(TAG, "REsponse is "+ response.toString());
+               /* try {
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject object = (JSONObject) response.getJSONObject(i);
                         String subjectname = object.getString("SubjectName");
@@ -153,33 +166,24 @@ private static final String TAG="HOMEFRAGMENT";
                 }
                 catch(Exception e){
                     Log.d(TAG, "Exception in Response" + e.getLocalizedMessage());
-                }
-
-
+*/
             }
+
+
+
 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "Errrod in Response "+error.getLocalizedMessage());
+                Log.d(TAG, "First Requset Error  "+error.getLocalizedMessage());
 
             }
         });
 
+        mRequestQueue.addToElfREquestQue(request);
+
     }
 
-    //returns Student ID
-    //// TODO: 18-08-2016  what if two students are there?
-    private String getStudentIdfromPrefs() {
-
-        if (getContext()!=null){
-            prefs = getContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-            editor=prefs.edit();
-            return prefs.getString("studentid","no name");
-        }
-
-        return "";
-    }
 
     @Nullable
     @Override
@@ -199,11 +203,13 @@ private static final String TAG="HOMEFRAGMENT";
     }
 
     private void populateInfodetails() {
-        final SharedPreferences sp = getContext().getSharedPreferences(PREFS,Context.MODE_PRIVATE);
-        mSchoolName.setText(sp.getString("firstname","null"));
-        mLocation.setText(sp.getString("Location","null"));
-        mStudentName.setText(sp.getString("cityname","null"));
-        mClass.setText(sp.getString("standard","null"));
+
+        mSchoolName.setText(mPrefs.getSchoolName());
+        mLocation.setText(mPrefs.getCityName());
+        mStudentName.setText(mPrefs.getStudentName());
+        mClass.setText(mPrefs.getStandard());
+        mUserBoard.setText(mPrefs.getBoardName());
+
     }
 
     @Override
@@ -232,4 +238,11 @@ private static final String TAG="HOMEFRAGMENT";
     }
 
 
+    public  Fragment newInstance() {
+       if (mFragment == null){
+           mFragment = new HomeFragment();
+           return mFragment;
+       }
+        return mFragment ;
+    }
 }

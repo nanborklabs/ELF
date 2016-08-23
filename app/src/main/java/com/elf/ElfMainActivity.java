@@ -1,10 +1,13 @@
 package com.elf;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,20 +17,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.elf.Fragment.ContactUsFragment;
-import com.elf.Fragment.ContactsFragment;
 import com.elf.Fragment.HomeFragment;
-import com.elf.Fragment.RegisterFragment;
-import com.elf.Fragment.ReportPagerFragments.LoginFragment;
-import com.elf.Fragment.ReportsFragment;
-import com.elf.Fragment.PaymentsFragment;
 import com.elf.Fragment.NotificationFragment;
+import com.elf.Fragment.PaymentsFragment;
+import com.elf.Fragment.ReportsFragment;
 
 import butterknife.ButterKnife;
 
 public class ElfMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
+    private static final String PREFS = "ELF_PARENT";
     Fragment mainFragment;
     private static FragmentManager fManager;
     private static FragmentTransaction mTrasaction;
@@ -35,14 +35,33 @@ public class ElfMainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (isFirstime()){
+            final Intent i = new Intent(this, FIrstActivity.class);
+            startActivity(i);
+
+        }
+        //
         setContentView(R.layout.activity_elf_main);
         ButterKnife.bind(this);
+        mainFragment = new HomeFragment().newInstance();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frag_holder,mainFragment)
+                .commit();
+
+        final  SharedPreferences sf = getSharedPreferences(PREFS,Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sf.edit();
+
+        editor.commit();
+
+
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
-        fManager=getSupportFragmentManager();
-        fManager.beginTransaction().replace(R.id.frag_holder,new ContactUsFragment()).commit();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -51,6 +70,11 @@ public class ElfMainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private boolean isFirstime() {
+        final SharedPreferences sf  = this.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        return sf.getBoolean("isFirstTime",true);
     }
 
     @Override
@@ -108,10 +132,10 @@ public class ElfMainActivity extends AppCompatActivity
                mainFragment=new ContactUsFragment();
                break;
        }
-//      mainFragment=new LoginFragment();
+//
         //Replace Fragment Transaction and close the drawer
-      fManager.beginTransaction().replace(R.id.frag_holder,mainFragment)
-              .addToBackStack("yes")
+      getSupportFragmentManager().beginTransaction().replace(R.id.frag_holder,mainFragment)
+
               .commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

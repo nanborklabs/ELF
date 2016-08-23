@@ -142,7 +142,7 @@ public class ContactUsFragment extends Fragment {
     }
 
     private String getParentId() {
-        final SharedPreferences mPrefs  =  getContext().getSharedPreferences("ELF_P", Context.MODE_PRIVATE);
+        final SharedPreferences mPrefs  =  getContext().getSharedPreferences("ELF_PARENT", Context.MODE_PRIVATE);
         final SharedPreferences.Editor mEditor = mPrefs.edit();
         Log.d(TAG, "getParentId: "+mPrefs.getString("PARENT_ID","1"));
         return  mPrefs.getString("PARENT_ID","1");

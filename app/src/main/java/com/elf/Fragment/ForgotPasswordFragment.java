@@ -1,8 +1,10 @@
 package com.elf.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,18 +38,25 @@ public class ForgotPasswordFragment extends Fragment {
     private static final String CHECK_URL = "";
     private static final String SUBMIT_URL = " ";
 
+    private static final String PREFS="ELF_PARENT";
+
 
     @BindView(R.id.fp_email_ted)
-    TextInputEditText mEamilBox;
-    @BindView(R.id.fp_phone_ted) TextInputEditText mPhoneBox;
+    TextInputLayout mEamilBox;
+    @BindView(R.id.fp_phone_ted) TextInputLayout mPhoneBox;
     @BindView(R.id.fp_check_button)
     Button mCheckButton;
     private View mView;
-    @BindView(R.id.fp_pass_ted) TextInputEditText mPasswordBox;
-    @BindView(R.id.fp_rpass_ted) TextInputEditText mRePassBox;
+    @BindView(R.id.fp_pass_ted) TextInputLayout mPasswordBox;
+    @BindView(R.id.fp_rpass_ted) TextInputLayout mRePassBox;
     @BindView(R.id.fp_new_password_button) Button mSubmitButton;
 
     ElfRequestQueue mRequestQue;
+
+    ChangePassword mCallback;
+
+
+    private static  ForgotPasswordFragment mFragment = null;
 
     @Override
     public void onDestroyView() {
@@ -88,8 +97,8 @@ public class ForgotPasswordFragment extends Fragment {
         mCheckButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String mEmail = mEamilBox.getText().toString();
-                final String mPhone = mPhoneBox.getText().toString();
+                final String mEmail = mEamilBox.getEditText().getText().toString();
+                final String mPhone = mPhoneBox.getEditText().getText().toString();
 
                 //validate user name and password for this user
                 validateUser(mEmail,mPhone);
@@ -101,8 +110,8 @@ public class ForgotPasswordFragment extends Fragment {
             @Override
             public void onClick(View v) {
            //user has reset the password save it in database associated with this user
-                final String mPass =mPasswordBox.getText().toString();
-                final String mRePass = mRePassBox.getText().toString();
+                final String mPass =mPasswordBox.getEditText().getText().toString();
+                final String mRePass = mRePassBox.getEditText().getText().toString();
                 if (mPass.equals(mRePass)){
                     submitNewPassword(mPass,mRePass);
                 }
@@ -216,7 +225,26 @@ public class ForgotPasswordFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        mCallback = (ChangePassword) context;
+
+        super.onAttach(context);
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
+    }
+
+    public Fragment newInstance() {
+        if (mFragment == null){
+            mFragment = new ForgotPasswordFragment();
+            return mFragment;
+        }
+        return mFragment;
+    }
+
+    public interface ChangePassword{
+        void PassworChanged(boolean changed);
     }
 }

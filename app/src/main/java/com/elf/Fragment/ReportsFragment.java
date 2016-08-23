@@ -32,6 +32,8 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
 
     private View mView;
 
+    private static final String PREFS="ELF_PARENT";
+
 
     @BindView(R.id.report_username) TextView mUserName;
     @BindView(R.id.report_class) TextView mClassname;
@@ -99,7 +101,7 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
     }
 
     private void populateInfo() {
-        final SharedPreferences sf = getContext().getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
+        final SharedPreferences sf = getContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
         mUserName.setText(sf.getString("firstname","null"));
         mClassname.setText(sf.getString("classname","null"));
     }

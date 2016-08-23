@@ -1,27 +1,30 @@
-package com.elf;
+package com.elf.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.provider.Settings;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.elf.Fragment.ForgotPasswordFragment;
-import com.elf.Fragment.RegisterFragment;
-import com.elf.Network.CustomRetryPolicy;
+import com.elf.ElfMainActivity;
+import com.elf.FIrstActivity;
 import com.elf.Network.ElfRequestQueue;
+import com.elf.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,35 +34,23 @@ import java.net.URL;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginAcitivity extends AppCompatActivity {
+/**
+ * Created by nandhu on 23/8/16.
+ */
+public class LoginFragment extends Fragment {
 
 
-
-    private static final String TAG="Login";
-    private static final String PREFS="LOGIN";
+    private View mView;
 
     private final static String LOGIN_URL="http://www.hijazboutique.com/elf_ws.svc/CheckParentLogin";
 
-    private static final String NET_TAG="Login_page";
 
-    private static final String FORGOT_URL ="www.googel.com";
-    public View mview;
+    private static final String PREFS="ELF_PARENT";
 
-    //user name
-
-
-    //dialog box
-    private ProgressDialog progress;
-
-
-
-
-    private ElfRequestQueue queue;
-
-
-
-//    user name box
-    @BindView(R.id.login_user_name) TextInputLayout mUserNameBox;
+    private static final String TAG = "LOGIN";
+   //username
+    @BindView(R.id.login_user_name)
+    TextInputLayout mUserNameBox;
 
     // password Box
     @BindView(R.id.login_password_box) TextInputLayout mPAssBox;
@@ -77,28 +68,56 @@ public class LoginAcitivity extends AppCompatActivity {
     @BindView(R.id.login_forgot_password_button) Button mForgotButton;
 
 
-
-
-    ElfRequestQueue mRequestQueue;
+    private ProgressDialog progress;
 
 
 
+    //interface callback to notify activity  { @Buttonclicked }
+
+
+    //instantiate in onAttach
+    Buttonclicked mCallback;
+
+
+    private ElfRequestQueue mRequestQueue;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_frag);
-        ButterKnife.bind(this);
-        mRequestQueue  = ElfRequestQueue.getInstance(this);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+
+        mCallback = (Buttonclicked)context;
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+      mView = inflater.inflate(R.layout.login_frag,container,false);
+        ButterKnife.bind(this,mView);
+
+        mRequestQueue  = ElfRequestQueue.getInstance(getContext());
 
 
-        progress=new ProgressDialog(this);
+        progress=new ProgressDialog(getContext());
 
-        queue=ElfRequestQueue.getInstance(this);
 
         mUserNameBox.setTranslationY(-mUserNameBox.getHeight());
         mPAssBox.setTranslationY(-mPAssBox.getHeight());
-        StartAnimations();
+//        StartAnimations();
 
 
 
@@ -108,12 +127,12 @@ public class LoginAcitivity extends AppCompatActivity {
 
                 progress.show();
                 URL url=null;
-               final  String mUserName=mUserNameBox.getEditText().getText().toString();
-               final  String mPassword=mPAssBox.getEditText().getText().toString();
+                final  String mUserName=mUserNameBox.getEditText().getText().toString();
+                final  String mPassword=mPAssBox.getEditText().getText().toString();
 
 
                 sendServer(mUserName,mPassword);
-            progress.setTitle("Logging in");
+                progress.setTitle("Logging in");
                 progress.setMessage("Loggin in ..!!");
                 progress.setIndeterminate(true);
 
@@ -124,10 +143,10 @@ public class LoginAcitivity extends AppCompatActivity {
         mRegsiterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final RegisterFragment mFragment=new RegisterFragment();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frag_holder,mFragment)
-                        .commit();
+               if (mCallback != null){
+                   mCallback.ChangeFragment(0);
+               }
+
             }
         });
 
@@ -136,18 +155,35 @@ public class LoginAcitivity extends AppCompatActivity {
         mForgotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              getSupportFragmentManager().beginTransaction()
-                      .replace(R.id.frag_holder,new ForgotPasswordFragment())
-                      .commit();
+                if (mCallback != null) {
+                    mCallback.ChangeFragment(1);
+                }
 
             }
         });
 
-
-
+        return mView;
 
 
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+
+
+
+
+
+
+
 
     private void sendServer(String username, final String password) {
 
@@ -166,6 +202,8 @@ public class LoginAcitivity extends AppCompatActivity {
                 try {
 
 
+                    Log.d(TAG, "Login Response "+ response.toString());
+
                     JSONObject object1 = (JSONObject) response.get(0);
                     String LoginStatus=object1.getString("LoginStatus");
                     String Cityname=object1.getString("CityName");
@@ -181,18 +219,14 @@ public class LoginAcitivity extends AppCompatActivity {
                     String schoolName=object1.getString("InstitutionName");
                     String Standard=object1.getString("ClassName");
 
-                    Log.d(TAG, "onResponse: Standard "+Standard);
-                    Log.d(TAG, "onResponse: Schoolname "+schoolName);
-                    Log.d(TAG, "onResponse: Boardid  "+BoardId);
-                    Log.d(TAG, "onResponse: BoardName "+BoardName);
-                    Log.d(TAG, "onResponse: Status "+LoginStatus);
+
                     Log.d(TAG, "onResponse: StudentId "+StudentId);
 
                     if (LoginStatus.equals("success") ){
 
 
 //                        save details to shared Prefs
-                      final   SharedPreferences preferences= getApplicationContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+                        final SharedPreferences preferences= getContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor=preferences.edit();
                         editor.putString("firstname",Firstname);
                         editor.putString("lastname",Lastname);
@@ -206,10 +240,11 @@ public class LoginAcitivity extends AppCompatActivity {
                         editor.putString("studentid",StudentId);
                         editor.putString("standard",Standard);
                         editor.putString("schoolname",schoolName);
+                        editor.putBoolean("isFirstTime",false);
                         editor.apply();
                         progress.hide();
 
-                        final  Intent mIntent = new Intent(LoginAcitivity.this,ElfMainActivity.class);
+                        final Intent mIntent = new Intent(getContext(),ElfMainActivity.class);
                         mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(mIntent);
 
@@ -236,13 +271,13 @@ public class LoginAcitivity extends AppCompatActivity {
                 Log.d(TAG, "Response is Error"+error.getLocalizedMessage());
             }
         });
-        request.setTag(NET_TAG);
 
-        queue.addToElfREquestQue(request);
+
+        mRequestQueue.addToElfREquestQue(request);
     }
 
     private void ShowNetorkError() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(LoginAcitivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Could Not connect");
         builder.setMessage("Please make sure you are connected to Internet");
 
@@ -273,7 +308,7 @@ public class LoginAcitivity extends AppCompatActivity {
 * method which dispalaye Error dialog*/
 
     private void showError() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(LoginAcitivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Wrong Details");
         builder.setMessage("Please Enter Correct details");
 
@@ -305,35 +340,44 @@ public class LoginAcitivity extends AppCompatActivity {
     }
 
 
-
-    private void StartAnimations() {
-
-//       Animatiosn for Imagview
-
-
-//        animations for Edite text componenets
-
-       /* username_login.animate().translationY(0)
-                .setDuration(1200)
-                .setStartDelay(800)
-                .setInterpolator(new AccelerateInterpolator())
-                .start();
-        mPassword.animate().translationY(0)
-                .setDuration(1200)
-                .setStartDelay(800)
-
-                .setInterpolator(new AccelerateDecelerateInterpolator())
-                .start();
-                */
-
-
+    /*
+    *
+    * a interface which tells the parent acivity to change fragments
+    *
+    * pass along an id
+    *  0 - Register
+    *  1 - forgot password
+    *
+    * */
+    public interface Buttonclicked{
+        public void ChangeFragment(int id);
     }
 
 
 
+
     @Override
-    protected void onStop() {
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
+
+    @Override
+    public void onStop() {
         super.onStop();
-        queue.cancelElfReques(NET_TAG);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }

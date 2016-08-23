@@ -46,8 +46,7 @@ public class RegisterFragment  extends Fragment{
     private static final String URL="http://www.hijazboutique.com/elf_ws.svc/ParentRegistration";
 
     //view binding
-    @BindView(R.id.re_pass_register)
-    TextInputEditText mRePasswordBox;
+    @BindView(R.id.re_pass_register) TextInputEditText mRePasswordBox;
     @BindView(R.id.pas_register) TextInputEditText mPasswordBox;
     @BindView(R.id.name_text) TextInputEditText  mNametextbox;
     //    state textview
@@ -87,11 +86,30 @@ public class RegisterFragment  extends Fragment{
     ArrayAdapter<String> mBoardSpinnerAdapter=null;
 
 
+    private static final String PREFS="ELF_PARENT";
+
     //The request Queue for this page
     ElfRequestQueue mRequestQueue;
 
 
 
+
+    //the singleton fragment
+
+    private static RegisterFragment mFragment = null;
+
+
+
+    RegistrationSuccess mCallback;
+    @Override
+    public void onAttach(Context context) {
+
+        mCallback = (RegistrationSuccess) context;
+
+        super.onAttach(context);
+
+
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -273,12 +291,9 @@ public class RegisterFragment  extends Fragment{
 
 
                 Log.d(TAG, "onResponse: succes Registraion");
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frag_holder,new HomeFragment())
-                        .commit();
-                //user is Registed ,get studentid and Store it for Permanent user
-//                        String mStudId = response.getJSONObject(0).getString("StudentId");
-//                        saveStudentId(mStudId);
-
+                if (mCallback!= null){
+                    mCallback.registeredUser(true);
+                }
             }
             else {
                 //not Registerd , show login Page
@@ -380,4 +395,19 @@ public class RegisterFragment  extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-    }}
+    }
+
+    public Fragment newInstance() {
+        if (mFragment ==null){
+            mFragment = new RegisterFragment();
+            return mFragment;
+        }
+
+        return  mFragment;
+
+    }
+
+    public interface RegistrationSuccess{
+        void registeredUser(boolean ok);
+    }
+}
