@@ -97,7 +97,7 @@ return  "10";
     }
 
 
-
-
-
+    public boolean isStudentAcceptedRequested() {
+        return sf.getBoolean("isStudentAccepted",false);
+    }
 }

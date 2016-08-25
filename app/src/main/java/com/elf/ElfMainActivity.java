@@ -13,31 +13,53 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.Fragment.ContactUsFragment;
 import com.elf.Fragment.HomeFragment;
+import com.elf.Fragment.NoStudentFragment;
 import com.elf.Fragment.NotificationFragment;
 import com.elf.Fragment.PaymentsFragment;
+import com.elf.Fragment.RelationshipFragment;
 import com.elf.Fragment.ReportsFragment;
+import com.elf.Network.ElfRequestQueue;
+import com.elf.UserPrefs.MyPrefs;
 
 import junit.framework.Assert;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 
 public class ElfMainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener  , NoStudentFragment.AddStudent{
 
     private static final String PREFS = "ELF_PARENT";
+
+
+    private static  final String ACCPET_REQ = "";
+    private static final String TAG = "MAIN ACTIVITY";
     Fragment mainFragment;
     private static FragmentManager fManager;
     private static FragmentTransaction mTrasaction;
+
+    ElfRequestQueue mRequestQueue;
+    MyPrefs myPrefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
+
+        mRequestQueue = ElfRequestQueue.getInstance(this);
+        myPrefs = new MyPrefs(this);
         //check whether activity is first time
         if (isFirstime()){
             final Intent i = new Intent(this, FIrstActivity.class);
@@ -52,7 +74,7 @@ public class ElfMainActivity extends AppCompatActivity
             //a student  has accepted show dash
 
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frag_holder,mainFragment)
+                    .replace(R.id.frag_holder,new HomeFragment())
                     .commit();
 
         }
@@ -91,6 +113,35 @@ public class ElfMainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+
+    //check shared prefrences for student exists flag
+      // if student exists  ,return true
+
+    private boolean RequestAccepted() {
+
+       if (myPrefs.isStudentAcceptedRequested()){
+           return true;
+       }else {
+           return false;
+       }
+
+    }
+
+    private boolean processResponse(JSONArray response) {
+
+        try{
+
+            JSONObject mObject  = response.getJSONObject(0);
+            String status = mObject.getString("StatusCode");
+            return status.equals("1000");
+
+        }
+        catch (Exception e ){
+            Log.d(TAG, "processResponse: ");
+        }
+        return false;
     }
 
     private boolean isFirstime() {
@@ -161,5 +212,17 @@ public class ElfMainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+
+
+    /*this method is called from { @link NoStudentFragment  }
+    * which takes to Relation ship page to add student
+    * */
+    @Override
+    public void AddStudent() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.frag_holder, new RelationshipFragment())
+                .commit();
     }
 }

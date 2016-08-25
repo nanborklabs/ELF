@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.elf.R;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -19,6 +21,12 @@ public class NoStudentFragment extends Fragment {
 
 
     private View mView;
+
+    AddStudent mCallback;
+
+
+    @BindView(R.id.no_student_button)
+    Button mButton;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +47,15 @@ public class NoStudentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        mView  = inflater.inflate(R.layout.no_student,container,false);
         ButterKnife.bind(this,mView);
+
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        return mView;
     }
 
     @Override
@@ -79,5 +96,11 @@ public class NoStudentFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        mCallback = (AddStudent) context;
+    }
+
+    public interface  AddStudent{
+        void AddStudent();
+
     }
 }

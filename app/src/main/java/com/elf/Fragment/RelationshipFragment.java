@@ -174,7 +174,7 @@ public class RelationshipFragment extends Fragment implements AdapterView.OnItem
                 if(processAcceptResponse(response)){
                     //Accept request sent
                     //
-                    myPrefs.setRequsetAccepted(false);
+
                 }
             }
         }, new Response.ErrorListener() {
