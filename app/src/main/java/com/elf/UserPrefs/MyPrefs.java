@@ -17,7 +17,7 @@ public class MyPrefs {
     }
 
 
-    public String getStudentId(){
+    public String getParentId(){
 
         String Id = sf.getString("studentid","null");
         if (Id.equals("null")){
@@ -80,6 +80,20 @@ return  "10";
             return Id;
 
         }
+    }
+
+    public void setStudentId(){
+
+    }
+
+    public  boolean geRequestedAccepted(){
+        return sf.getBoolean("RequestAccepted",false);
+    }
+
+    public void setRequestAccepted(boolean value){
+        final SharedPreferences.Editor ed = sf.edit();
+        ed.putBoolean("RequestAccepted",false);
+        ed.apply();
     }
 
 

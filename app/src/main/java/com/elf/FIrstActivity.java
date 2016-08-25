@@ -20,6 +20,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.elf.Fragment.ForgotPasswordFragment;
 import com.elf.Fragment.LoginFragment;
 import com.elf.Fragment.RegisterFragment;
+import com.elf.Fragment.RelationshipFragment;
 import com.elf.Network.ElfRequestQueue;
 
 import org.json.JSONArray;
@@ -30,7 +31,7 @@ import java.net.URL;
 import butterknife.ButterKnife;
 
 public class FIrstActivity extends AppCompatActivity implements LoginFragment.Buttonclicked , RegisterFragment.RegistrationSuccess
-, ForgotPasswordFragment.ChangePassword{
+, ForgotPasswordFragment.ChangePassword ,RelationshipFragment.RelationshipPagehandler{
 
 
     private static final String TAG = "Login";
@@ -79,10 +80,16 @@ public class FIrstActivity extends AppCompatActivity implements LoginFragment.Bu
 
     @Override
     public void registeredUser(boolean ok) {
-        //suuccess Registraion show login Fragment
+        //suuccess Registraion show realationship page
         if (ok){
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.first_frag_holder,new LoginFragment())
+                    .replace(R.id.first_frag_holder,new RelationshipFragment())
+                    .commit();
+        }
+        else {
+            //no registered , show same page
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.first_frag_holder,new RelationshipFragment())
                     .commit();
         }
 
@@ -101,5 +108,13 @@ public class FIrstActivity extends AppCompatActivity implements LoginFragment.Bu
 
 
         }
+    }
+
+    @Override
+    public void RelationshipAdded(boolean ok) {
+        //show Home page // student id should have heve been saved
+        final Intent i = new Intent(this,ElfMainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
     }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:text="Add Your Relationship"
+
+
+
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="18sp"
+        android:gravity="center_horizontal"
+        android:text="Let them Know of your Progress"
+
+
+
+        />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_height="60dp"
+        android:prompt="Add Your Relationship"
+        android:id="@+id/relation_spinner">
+
+
+    </Spinner>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Student Id"
+        android:id="@+id/relation_parent_ted"
+        android:layout_marginTop="45dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginLeft="32dp"
+
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find Student"
+        android:id="@+id/relation_button"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal" />
+
+
+</LinearLayout>

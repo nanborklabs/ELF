@@ -22,6 +22,8 @@ import com.elf.Fragment.NotificationFragment;
 import com.elf.Fragment.PaymentsFragment;
 import com.elf.Fragment.ReportsFragment;
 
+import junit.framework.Assert;
+
 import butterknife.ButterKnife;
 
 public class ElfMainActivity extends AppCompatActivity
@@ -35,6 +37,8 @@ public class ElfMainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        //check whether activity is first time
         if (isFirstime()){
             final Intent i = new Intent(this, FIrstActivity.class);
             startActivity(i);
@@ -42,14 +46,28 @@ public class ElfMainActivity extends AppCompatActivity
         }
 
 
+        setContentView(R.layout.activity_elf_main);
+        // if student accepted the Request show home fragmetn with student id
+        if(RequestAccepted()){
+            //a student  has accepted show dash
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frag_holder,mainFragment)
+                    .commit();
+
+        }
+        else{
+            getSupportFragmentManager().beginTransaction().
+                    replace(R.id.frag_holder,new NoStudentFragment())
+                    .commit();
+        }
+
 
         //
-        setContentView(R.layout.activity_elf_main);
+
         ButterKnife.bind(this);
         mainFragment = new HomeFragment().newInstance();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frag_holder,mainFragment)
-                .commit();
+
 
         final  SharedPreferences sf = getSharedPreferences(PREFS,Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sf.edit();
