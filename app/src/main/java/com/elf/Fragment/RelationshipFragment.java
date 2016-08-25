@@ -41,6 +41,8 @@ public class RelationshipFragment extends Fragment implements AdapterView.OnItem
 
     private static final String RELATION_URL = "http://www.hijazboutique.com/elf_ws.svc/ParentStudentRelation";
 
+    private static final String FIND_STUDENT = "";
+
     private static final String TAG = "RELATIONSHIP";
 
     private static final String ADD_REQUEST = "";
@@ -79,6 +81,9 @@ public class RelationshipFragment extends Fragment implements AdapterView.OnItem
     RelationshipPagehandler mCallback;
 
 
+    @BindView(R.id.relation_student_search_page) View mSearchView;
+    @BindView(R.id.relation_student_search_result) View mResultView;
+
     Scene mStdResultScene;
     Scene mRootScene;
     Scene mStdSearchScene;
@@ -116,7 +121,11 @@ public class RelationshipFragment extends Fragment implements AdapterView.OnItem
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.relationship_frag, container, false);
+
+
         ButterKnife.bind(this, mView);
+
+        mSearchView.setVisibility(View.VISIBLE);
 
 
 
@@ -211,19 +220,23 @@ public class RelationshipFragment extends Fragment implements AdapterView.OnItem
         try {
 
             mObject.put("studentId",mStdId);
-            mObject.put("ParentId",mParentId);
-            mObject.put("RelationshipId","1");
+
         }
         catch (Exception  e ){
             Log.d(TAG, "addStudentRequest: ");
         }
 
         //Make Request
-        JsonArrayRequest  mReq = new JsonArrayRequest(Request.Method.POST, RELATION_URL, mObject, new Response.Listener<JSONArray>() {
+        JsonArrayRequest  mReq = new JsonArrayRequest(Request.Method.POST, FIND_STUDENT, mObject, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 if (processResposne(response)){
 
+                    mSearchView.setVisibility(View.INVISIBLE);
+                    mResultView.setVisibility(View.VISIBLE);
+//                    mStdname.setText();
+//                    mClass.setText();
+//                    mSchoolname.setText();
                 }
 
             }

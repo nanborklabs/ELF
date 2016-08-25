@@ -92,7 +92,7 @@ return  "10";
 
     public void setRequestAccepted(boolean value){
         final SharedPreferences.Editor ed = sf.edit();
-        ed.putBoolean("RequestAccepted",false);
+        ed.putBoolean("isStudentAccepted",value);
         ed.apply();
     }
 

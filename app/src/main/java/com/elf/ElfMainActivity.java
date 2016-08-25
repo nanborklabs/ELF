@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -46,6 +47,7 @@ public class ElfMainActivity extends AppCompatActivity
 
     private static  final String ACCPET_REQ = "";
     private static final String TAG = "MAIN ACTIVITY";
+
     Fragment mainFragment;
     private static FragmentManager fManager;
     private static FragmentTransaction mTrasaction;
@@ -60,7 +62,7 @@ public class ElfMainActivity extends AppCompatActivity
 
         mRequestQueue = ElfRequestQueue.getInstance(this);
         myPrefs = new MyPrefs(this);
-        //check whether activity is first time
+        //check whether activity is first time ,show login activity
         if (isFirstime()){
             final Intent i = new Intent(this, FIrstActivity.class);
             startActivity(i);
@@ -69,7 +71,7 @@ public class ElfMainActivity extends AppCompatActivity
 
 
         setContentView(R.layout.activity_elf_main);
-        // if student accepted the Request show home fragmetn with student id
+        // if student accepted the Request show home fragmetn with student id ,else no student page
         if(RequestAccepted()){
             //a student  has accepted show dash
 
@@ -124,8 +126,42 @@ public class ElfMainActivity extends AppCompatActivity
        if (myPrefs.isStudentAcceptedRequested()){
            return true;
        }else {
-           return false;
+
+           //student is not accepted check for student's acceptance
+            // if studetn accepted update in the shared prefs
+
+                   checkStudentAcceptance();
+
+
+          return false;
        }
+
+    }
+
+    private void checkStudentAcceptance() {
+        JSONObject mObject  = new JSONObject();
+        try{
+
+            mObject.put("ParentId","4");
+
+        }
+        catch (Exception e ){
+            Log.d(TAG, "checkStudentAcceptance: ");
+        }
+      JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST, ACCPET_REQ, mObject, new Response.Listener<JSONArray>() {
+          @Override
+          public void onResponse(JSONArray response) {
+            //if accepted , save status in prrefreneces
+//         todo: save prefreeces
+//    myPrefs.setRequestAccepted(true);
+          }
+      }, new Response.ErrorListener() {
+          @Override
+          public void onErrorResponse(VolleyError error) {
+
+          }
+      });
+        mRequestQueue.addToElfREquestQue(mRequest);
 
     }
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -50,6 +51,9 @@ public class FIrstActivity extends AppCompatActivity implements LoginFragment.Bu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_activity);
+
+
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.first_frag_holder,new LoginFragment())
                 .commit();
