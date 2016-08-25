@@ -40,6 +40,9 @@ public class ElfMainActivity extends AppCompatActivity
             startActivity(i);
 
         }
+
+
+
         //
         setContentView(R.layout.activity_elf_main);
         ButterKnife.bind(this);

@@ -21,7 +21,8 @@ public class MyPrefs {
 
         String Id = sf.getString("studentid","null");
         if (Id.equals("null")){
-           throw new NullPointerException("Student id is null");
+//           throw new NullPointerException("Student id is null");
+            return "null";
         }else {
             return Id;
 
@@ -42,7 +43,8 @@ return  "10";
     public String getCityName(){
         String Id = sf.getString("cityname","null");
         if (Id.equals("null")){
-            throw new NullPointerException("lcoation id is null");
+//            throw new NullPointerException("lcoation id is null");
+            return "null";
         }else {
             return Id;
 
@@ -72,12 +74,14 @@ return  "10";
     public String  getStudentName(){
         String Id = sf.getString("firstname","null");
         if (Id.equals("null")){
-            throw new NullPointerException("Student id is null");
+//            throw new NullPointerException("Student id is null");
+            return "null";
         }else {
             return Id;
 
         }
     }
+
 
 
 

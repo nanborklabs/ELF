@@ -48,8 +48,7 @@ private static final String TAG="HOMEFRAGMENT";
     //the single reuqeust queue for this app
     ElfRequestQueue mRequestQueue;
 
-    //prefes file
-    private static final String PREFS="ELF_PARENT";
+
 
     //the webservice for DashBoard
 
@@ -113,6 +112,9 @@ private static final String TAG="HOMEFRAGMENT";
 
 
         mStudentId = mPrefs.getStudentId();
+        if (mStudentId.equals("null")){
+            mStudentId = "1";
+        }
 
         //get dash board Deatils of Student , that is show overall status
 
@@ -208,7 +210,7 @@ private static final String TAG="HOMEFRAGMENT";
     private void populateInfodetails() {
 
         mSchoolName.setText(mPrefs.getSchoolName());
-        mLocation.setText(mPrefs.getCityName());
+        mLocation.setText((mPrefs.getCityName()).equals("null")?"CBE":"CBE");
         mStudentName.setText(mPrefs.getStudentName());
         mClass.setText(mPrefs.getStandard());
         mUserBoard.setText(mPrefs.getBoardName());

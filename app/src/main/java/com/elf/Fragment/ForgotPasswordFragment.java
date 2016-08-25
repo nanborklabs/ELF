@@ -16,12 +16,14 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.elf.Network.CustomRetryPolicy;
 import com.elf.Network.ElfRequestQueue;
 import com.elf.R;
 import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -35,8 +37,8 @@ public class ForgotPasswordFragment extends Fragment {
 
 
     private static final String TAG = "FORGOT";
-    private static final String CHECK_URL = "";
-    private static final String SUBMIT_URL = " ";
+    private static final String CHECK_URL = "http://www.hijazboutique.com/elf_ws.svc/CheckUserDetails";
+    private static final String SUBMIT_URL = "http://www.hijazboutique.com/elf_ws.svc/UpdatePassword";
 
     private static final String PREFS="ELF_PARENT";
 
@@ -55,6 +57,9 @@ public class ForgotPasswordFragment extends Fragment {
 
     ChangePassword mCallback;
 
+
+    //user id
+    String mParentId;
 
     private static  ForgotPasswordFragment mFragment = null;
 
@@ -132,17 +137,28 @@ public class ForgotPasswordFragment extends Fragment {
 
         try {
 //            // TODO: 22-08-2016  dynamic user id
+
+
             mObject.put("UserId", "2");
             mObject.put("password", mPass);
+            mObject.put("UserType","parent");
         } catch (Exception e) {
             Log.d(TAG, "submitNewPassword: Exception ");
 
         }
 
-        JsonObjectRequest mRequest = new JsonObjectRequest(Request.Method.POST, SUBMIT_URL, mObject, new Response.Listener<JSONObject>() {
+        JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST, SUBMIT_URL, mObject, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONObject response) {
-                Log.d(TAG, "onResponse: ");
+            public void onResponse(JSONArray response) {
+
+                if (PasswordResetSucess(response)){
+                    showloginPage();
+                }
+                else {
+                    Toast.makeText(getContext(),"Trying again after some",Toast.LENGTH_SHORT).show();
+                }
+
+
 
                 //
             }
@@ -157,6 +173,30 @@ public class ForgotPasswordFragment extends Fragment {
 
     }
 
+    private void showloginPage() {
+        if (mCallback!=null){
+            mCallback.PassworChanged(true);
+        }
+    }
+
+    private boolean PasswordResetSucess(JSONArray response) {
+        try {
+
+            JSONObject obj = response.getJSONObject(0);
+            String status= obj.getString("StatusCode");
+            if (status.equals("1000")){
+                return true;
+            }
+            else {
+                return false;
+            }
+
+
+        }
+        catch (Exception  e){
+            return false;
+        }
+    }
 
 
     private void validateUser(String mEmail, String mPhone) {
@@ -165,15 +205,16 @@ public class ForgotPasswordFragment extends Fragment {
         try {
 
             mObject.put("Email", mEmail);
-            mObject.put("phone", mPhone);
+            mObject.put("PhoneNumber", mPhone);
+            mObject.put("UserType","parent");
         } catch (Exception e) {
             Log.d(TAG, "validateUser: ");
         }
 
-        JsonObjectRequest mRequest = new JsonObjectRequest(Request.Method.POST, CHECK_URL, mObject, new Response.Listener<JSONObject>() {
+        JsonArrayRequest mRequest = new JsonArrayRequest(Request.Method.POST, CHECK_URL, mObject, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONObject response) {
-                Log.d(TAG, "onResponse: " + response.toString());
+            public void onResponse(JSONArray response) {
+
 
                 // if credentials are good show reset page
                 // else  make toast
@@ -199,9 +240,26 @@ public class ForgotPasswordFragment extends Fragment {
         mRequestQue.addToElfREquestQue(mRequest);
     }
 
-    private boolean success(JSONObject response) {
+    private boolean success(JSONArray response) {
+        try {
 
-        return true;
+            JSONObject object= response.getJSONObject(0);
+            String status = object.getString("StatusCode");
+            //mParentId  = object.getString("parentID");
+            Log.d(TAG, "Status code "+status);
+            if (status.equals("1000")){
+                return true;
+            }
+            else {
+                return true;
+            }
+        }
+        catch (Exception e ){
+            Log.d(TAG, "exception in getting object values from ");
+        }
+
+        return false;
+
     }
 
     @Override
