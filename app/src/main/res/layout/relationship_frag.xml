@@ -37,7 +37,6 @@
             android:layout_marginRight="32dp"
             android:layout_marginLeft="32dp"
             android:layout_height="60dp"
-            android:prompt="Add Your Relationship"
             android:id="@+id/relation_spinner">
 
 

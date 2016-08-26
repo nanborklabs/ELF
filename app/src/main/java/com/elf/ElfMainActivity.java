@@ -66,6 +66,7 @@ public class ElfMainActivity extends AppCompatActivity
         if (isFirstime()){
             final Intent i = new Intent(this, FIrstActivity.class);
             startActivity(i);
+            finish();
 
         }
 

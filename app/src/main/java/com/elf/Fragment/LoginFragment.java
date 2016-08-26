@@ -131,7 +131,9 @@ public class LoginFragment extends Fragment {
                 final  String mPassword=mPAssBox.getEditText().getText().toString();
 
 
-                sendServer(mUserName,mPassword);
+//                sendServer(mUserName,mPassword);
+
+//                startActivity(new Intent(this,ElfMainActivity.class));
                 progress.setTitle("Logging in");
                 progress.setMessage("Loggin in ..!!");
                 progress.setIndeterminate(true);
@@ -205,27 +207,27 @@ public class LoginFragment extends Fragment {
                     Log.d(TAG, "Login Response "+ response.toString());
 
                     JSONObject object1 = (JSONObject) response.get(0);
-                    String LoginStatus=object1.getString("LoginStatus");
-                    String Cityname=object1.getString("CityName");
-                    String District=object1.getString("DistrictName");
-                    String Firstname=object1.getString("FirstName");
-                    String Lastname=object1.getString("LastName");
-                    String Email=object1.getString("EmailAddress");
-                    String PArent=object1.getString("ParentId");
-                    String phone=object1.getString("PhoneNumber");
-                    String BoardName=object1.getString("BoardName");
-                    String BoardId=object1.getString("BoardId");
-                    String StudentId=object1.getString("StudentId");
-                    String schoolName=object1.getString("InstitutionName");
-                    String Standard=object1.getString("ClassName");
+                    String LoginStatus=object1.getString("StatusCode");
 
 
-                    Log.d(TAG, "onResponse: StudentId "+StudentId);
 
-                    if (LoginStatus.equals("success") ){
+                    if (LoginStatus.equals("1000") ){
 
 
 //                        save details to shared Prefs
+                        String Cityname=object1.getString("CityName");
+                        String District=object1.getString("DistrictName");
+                        String Firstname=object1.getString("FirstName");
+                        String Lastname=object1.getString("LastName");
+                        String Email=object1.getString("EmailAddress");
+                        String PArent=object1.getString("ParentId");
+                        String phone=object1.getString("PhoneNumber");
+                        String BoardName=object1.getString("BoardName");
+                        String BoardId=object1.getString("BoardId");
+                        String StudentId=object1.getString("StudentId");
+                        String schoolName=object1.getString("InstitutionName");
+                        String Standard=object1.getString("ClassName");
+
                         final SharedPreferences preferences= getContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor=preferences.edit();
                         editor.putString("firstname",Firstname);
@@ -251,6 +253,7 @@ public class LoginFragment extends Fragment {
 
                     }
                     else {
+                        progress.hide();
                         showError();
                     }
 
