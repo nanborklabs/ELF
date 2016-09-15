@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -74,31 +75,36 @@ public class ElfMainActivity extends AppCompatActivity
         mRequestQueue = ElfRequestQueue.getInstance(this);
         myPrefs = new MyPrefs(this);
         //check whether activity is first time ,show login activity
-        if (isFirstime()){
+      /*  if (isFirstime()){
             final Intent i = new Intent(this, FIrstActivity.class);
             startActivity(i);
             finish();
 
         }
+        */
 
 
         setContentView(R.layout.app_bar_elf_main);
         // if student accepted the Request show home fragmetn with student id ,else no student page
-        if(RequestAccepted()){
+//        if(RequestAccepted()){
             //a student  has accepted show dash
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.frag_holder,new HomeFragment())
                     .commit();
 
-        }
-        else{
-            getSupportFragmentManager().beginTransaction().
-                    replace(R.id.frag_holder,new NoStudentFragment())
-                    .commit();
-        }
 
-        AccountHeader headerResult = new AccountHeaderBuilder()
+//        else{
+//            getSupportFragmentManager().beginTransaction().
+//                    replace(R.id.frag_holder,new NoStudentFragment())
+//                    .commit();
+//        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+    AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header_img)
                 .addProfiles(
@@ -119,6 +125,7 @@ public class ElfMainActivity extends AppCompatActivity
 
         mDrawer = new DrawerBuilder()
                 .withActivity(this)
+                .withToolbar(toolbar)
                 .addDrawerItems(
                         item1, new DividerDrawerItem(),
                         item2, new DividerDrawerItem(),
@@ -138,7 +145,7 @@ public class ElfMainActivity extends AppCompatActivity
         //
 
         ButterKnife.bind(this);
-        mainFragment = new HomeFragment().newInstance();
+        mainFragment = HomeFragment.newInstance();
 
 
         final  SharedPreferences sf = getSharedPreferences(PREFS,Context.MODE_PRIVATE);
@@ -150,8 +157,7 @@ public class ElfMainActivity extends AppCompatActivity
 
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
 
 
@@ -228,12 +234,8 @@ public class ElfMainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+
+        super.onBackPressed();
     }
 
     @Override
