@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -48,6 +49,8 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
     public @BindView(R.id.radio_gro) RadioGroup mRadioGroup;
 
 
+
+    private static ReportsFragment mFragment = null;
      FragmentManager fm;
 
 
@@ -195,6 +198,12 @@ public class ReportsFragment extends android.support.v4.app.Fragment implements 
     }
 
 
+    public static Fragment newInstance() {
 
-
+        if (mFragment == null){
+            mFragment = new ReportsFragment();
+            return mFragment;
+        }
+        return mFragment;
+    }
 }

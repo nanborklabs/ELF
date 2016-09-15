@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import butterknife.ButterKnife;
  */
 public class NotificationFragment extends android.support.v4.app.Fragment {
 
+    private static NotificationFragment mFragment=  null;
     private View mView;
     @BindView(R.id.noti_list_view)
     RecyclerView mRecyclerView;
@@ -116,5 +118,13 @@ public class NotificationFragment extends android.support.v4.app.Fragment {
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    public static Fragment newInstnace() {
+        if (mFragment == null){
+            mFragment = new NotificationFragment();
+            return mFragment;
+        }
+        return mFragment;
     }
 }

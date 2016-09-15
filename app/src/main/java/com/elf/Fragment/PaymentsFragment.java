@@ -2,6 +2,7 @@ package com.elf.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
  */
 public class PaymentsFragment extends android.support.v4.app.Fragment {
 
+
+    private static PaymentsFragment mFragment = null;
 
     @Override
     public void onDestroyView() {
@@ -58,6 +61,14 @@ public class PaymentsFragment extends android.support.v4.app.Fragment {
         super.onStop();
     }
 
+    public static Fragment newInstance() {
+        if (mFragment == null){
+
+            mFragment = new PaymentsFragment();
+            return mFragment;
+        }
+        return mFragment;
+    }
 }
 
 

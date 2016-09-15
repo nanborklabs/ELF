@@ -243,7 +243,7 @@ private static final String TAG="HOMEFRAGMENT";
     }
 
 
-    public  Fragment newInstance() {
+    public  static Fragment newInstance() {
        if (mFragment == null){
            mFragment = new HomeFragment();
            return mFragment;

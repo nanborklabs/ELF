@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -31,6 +32,15 @@ import com.elf.Fragment.RelationshipFragment;
 import com.elf.Fragment.ReportsFragment;
 import com.elf.Network.ElfRequestQueue;
 import com.elf.UserPrefs.MyPrefs;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import junit.framework.Assert;
 
@@ -40,7 +50,7 @@ import org.json.JSONObject;
 import butterknife.ButterKnife;
 
 public class ElfMainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener  , NoStudentFragment.AddStudent{
+        implements  NoStudentFragment.AddStudent, Drawer.OnDrawerItemClickListener {
 
     private static final String PREFS = "ELF_PARENT";
 
@@ -51,6 +61,7 @@ public class ElfMainActivity extends AppCompatActivity
     Fragment mainFragment;
     private static FragmentManager fManager;
     private static FragmentTransaction mTrasaction;
+    Drawer mDrawer =null;
 
     ElfRequestQueue mRequestQueue;
     MyPrefs myPrefs;
@@ -71,7 +82,7 @@ public class ElfMainActivity extends AppCompatActivity
         }
 
 
-        setContentView(R.layout.activity_elf_main);
+        setContentView(R.layout.app_bar_elf_main);
         // if student accepted the Request show home fragmetn with student id ,else no student page
         if(RequestAccepted()){
             //a student  has accepted show dash
@@ -86,6 +97,42 @@ public class ElfMainActivity extends AppCompatActivity
                     replace(R.id.frag_holder,new NoStudentFragment())
                     .commit();
         }
+
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .withHeaderBackground(R.drawable.header_img)
+                .addProfiles(
+                        new ProfileDrawerItem().withName("Student Name").withEmail("Standard").withIcon(R.drawable.ic_account_circle_white_48dp)
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        return false;
+                    }
+                })
+                .build();
+        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withIdentifier(0).withName("Home").withIcon(R.drawable.ic_home_black_48dp)
+                .withIconTintingEnabled(true);
+        PrimaryDrawerItem item2 = new PrimaryDrawerItem().withIdentifier(1).withName("Reports").withIcon(R.drawable.ic_assessment_black_24dp).withIconTintingEnabled(true);
+        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withIdentifier(2).withName("Tests").withIcon(R.drawable.ic_assignment_black_48dp) .withIconTintingEnabled(true);
+        PrimaryDrawerItem item4 = new PrimaryDrawerItem().withIdentifier(3).withName("Notifications").withIcon(R.drawable.ic_message_black_48dp) .withIconTintingEnabled(true);
+
+        mDrawer = new DrawerBuilder()
+                .withActivity(this)
+                .addDrawerItems(
+                        item1, new DividerDrawerItem(),
+                        item2, new DividerDrawerItem(),
+                        item3, new DividerDrawerItem(),
+                        item4, new DividerDrawerItem()
+                )
+                .withHasStableIds(true)
+                .withDrawerLayout(R.layout.material_drawer)
+                .withActionBarDrawerToggle(false)
+                .withOnDrawerItemClickListener(this)
+                .withDrawerLayout(R.layout.material_drawer)
+                .withAccountHeader(headerResult)
+                .build();
+
 
 
         //
@@ -108,14 +155,7 @@ public class ElfMainActivity extends AppCompatActivity
 
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
 
@@ -218,38 +258,6 @@ public class ElfMainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-       switch (id){
-           case R.id.home:
-               mainFragment=new HomeFragment();
-               break;
-           case  R.id.report :
-               mainFragment=new ReportsFragment();
-               break;
-           case  R.id.noti :
-               mainFragment=new NotificationFragment();
-               break;
-           case  R.id.payments :
-               mainFragment=new PaymentsFragment();
-               break;
-           case  R.id.contacts:
-               mainFragment=new ContactUsFragment();
-               break;
-       }
-//
-        //Replace Fragment Transaction and close the drawer
-      getSupportFragmentManager().beginTransaction().replace(R.id.frag_holder,mainFragment)
-
-              .commit();
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
 
 
 
@@ -262,4 +270,46 @@ public class ElfMainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().replace(R.id.frag_holder, new RelationshipFragment())
                 .commit();
     }
+
+    @Override
+    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+        Log.d("Home", "onItemClick: " + position);
+        if (drawerItem != null) {
+            if (drawerItem.getIdentifier() == 0) {
+                mainFragment = HomeFragment.newInstance();
+            }
+            if (drawerItem.getIdentifier() == 1) {
+                mainFragment = ReportsFragment.newInstance();
+            }
+            if (drawerItem.getIdentifier() == 2) {
+                mainFragment = NotificationFragment.newInstnace();
+            }
+            if (drawerItem.getIdentifier() == 3) {
+                mainFragment = PaymentsFragment.newInstance();
+            }
+        if (mainFragment != null) {
+
+
+
+
+            FragmentManager fm = getSupportFragmentManager();
+            if (fm != null) {
+                FragmentTransaction ft = fm.beginTransaction();
+                if (ft != null) {
+                    ft.replace(R.id.frag_holder, mainFragment, "NAV")
+                            .addToBackStack(null)
+                            .commit();
+                }
+            }
+        }
+
+            mDrawer.closeDrawer();
+
+
+
+        }
+        return true;
+    }
+
 }
+
