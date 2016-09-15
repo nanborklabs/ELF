@@ -100,6 +100,7 @@ public class ElfMainActivity extends AppCompatActivity
 //                    .commit();
 //        }
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
